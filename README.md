@@ -41,7 +41,7 @@ If the status is changing on your WalkingPad you're good to go.
 
 # Acknowledgements
 
-This project is based on the original work from [huserben/walkingpad](https://github.com/huserben/walkingpad), which provides the foundational REST API implementation.
+This project is 90% based on the original work from [huserben/walkingpad](https://github.com/huserben/walkingpad), which provides the foundational REST API implementation.
 
 Thank you goes to all of the following people, who contributed feedback, bug reports, code submissions, testing, reviews or any kind of input.
   
