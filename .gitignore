@@ -11,6 +11,7 @@ profile.json
 profile.json.*
 profile-a*.json*
 account-data.json
+logs/*
 
 config.yaml
 config_azure.yaml
