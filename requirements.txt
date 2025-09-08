@@ -1,0 +1,6 @@
+asyncio
+pyyaml
+psycopg2-binary
+ph4_walkingpad
+Flask[async]
+python-dotenv
