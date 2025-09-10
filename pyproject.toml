@@ -1,0 +1,16 @@
+[project]
+name = "walkingpad-server"
+version = "0.1.0"
+description = "REST API server for WalkingPad BLE control"
+requires-python = ">=3.8"
+dependencies = [
+    "pyyaml",
+    "psycopg2-binary", 
+    "ph4-walkingpad",
+    "Flask[async]",
+    "python-dotenv",
+    "bleak",
+]
+
+[tool.uv]
+dev-dependencies = []

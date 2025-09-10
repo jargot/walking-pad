@@ -10,6 +10,12 @@ import os
 from dotenv import load_dotenv
 import time
 from functools import wraps
+from connection_manager import WalkingPadConnectionManager
+
+def log_with_timestamp(message):
+    """Print message with timestamp"""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # milliseconds
+    print(f"[{timestamp}] {message}")
 
 load_dotenv()
 
@@ -21,7 +27,9 @@ minimal_cmd_space = 0.69
 
 log = setup_logging()
 pad.logger = log
-ctler = Controller()
+
+# Initialize connection manager
+connection_manager = None
 
 last_status = {
     "steps": None,
@@ -33,10 +41,10 @@ last_status = {
 def on_new_status(sender, record):
 
     distance_in_km = record.dist / 100
-    print("Received Record:")
-    print('Distance: {0}km'.format(distance_in_km))
-    print('Time: {0} seconds'.format(record.time))
-    print('Steps: {0}'.format(record.steps))
+    log_with_timestamp("Received Record:")
+    log_with_timestamp('Distance: {0}km'.format(distance_in_km))
+    log_with_timestamp('Time: {0} seconds'.format(record.time))
+    log_with_timestamp('Steps: {0}'.format(record.steps))
 
     last_status['steps'] = record.steps
     last_status['distance'] = distance_in_km
@@ -70,7 +78,7 @@ def store_in_db(steps, distance_in_km, duration_in_seconds):
         conn.commit()
 
     except Exception as e:
-        print(f"Database error: {e}")
+        log_with_timestamp(f"Database error: {e}")
         if conn:
             conn.rollback()
     finally:
@@ -109,48 +117,38 @@ def save_config(config):
         yaml.dump(config, outfile, default_flow_style=False)
 
 
-async def connect_with_retry(max_retries=3):
-    """Connect to WalkingPad with retry logic"""
-    address = load_config()['address']
-    
-    for attempt in range(max_retries):
-        try:
-            print(f"Connecting to {address} (attempt {attempt + 1}/{max_retries})")
-            await ctler.run(address)
-            await asyncio.sleep(minimal_cmd_space)
-            print("Connected successfully")
-            return True
-        except Exception as e:
-            print(f"Connection attempt {attempt + 1} failed: {e}")
-            if attempt < max_retries - 1:
-                await asyncio.sleep(1)  # Wait before retry
-            else:
-                raise Exception(f"Failed to connect after {max_retries} attempts")
-    return False
-
-
-async def disconnect_safe():
-    """Safely disconnect with error handling"""
-    try:
-        await ctler.disconnect()
-        await asyncio.sleep(minimal_cmd_space)
-        print("Disconnected successfully")
-    except Exception as e:
-        print(f"Disconnect error (non-fatal): {e}")
+def initialize_connection_manager():
+    """Initialize the connection manager"""
+    global connection_manager
+    if connection_manager is None:
+        config = load_config()
+        connection_manager = WalkingPadConnectionManager(config['address'])
+        connection_manager.start_monitoring()
 
 
 def ble_operation(func):
-    """Decorator for BLE operations with error handling"""
+    """Decorator for BLE operations using connection manager"""
     @wraps(func)
     async def wrapper(*args, **kwargs):
+        global connection_manager
+        initialize_connection_manager()
+        
         try:
-            await connect_with_retry()
-            return await func(*args, **kwargs)
+            # Use the already-connected controller if available
+            if connection_manager.connected:
+                log_with_timestamp(f"Using existing connection for {func.__name__}")
+                ctler = connection_manager.controller
+            else:
+                log_with_timestamp(f"Establishing connection for {func.__name__}")
+                ctler = await connection_manager.get_connection()
+            
+            # Execute the operation
+            result = await func(ctler, *args, **kwargs)
+            return result
+            
         except Exception as e:
-            print(f"BLE operation failed: {e}")
+            log_with_timestamp(f"BLE operation failed: {e}")
             return {"error": str(e)}, 500
-        finally:
-            await disconnect_safe()
     return wrapper
 
 
@@ -172,7 +170,7 @@ def set_config_address():
 
 @app.route("/mode", methods=['GET'])
 @ble_operation
-async def get_pad_mode():
+async def get_pad_mode(ctler):
     await ctler.ask_stats()
     await asyncio.sleep(minimal_cmd_space)
     stats = ctler.last_status
@@ -189,9 +187,9 @@ async def get_pad_mode():
 
 @app.route("/mode", methods=['POST'])
 @ble_operation
-async def change_pad_mode():
+async def change_pad_mode(ctler):
     new_mode = request.args.get('new_mode')
-    print("Got mode {0}".format(new_mode))
+    log_with_timestamp("Got mode {0}".format(new_mode))
 
     if (new_mode.lower() == "standby"):
         pad_mode = WalkingPad.MODE_STANDBY
@@ -208,7 +206,7 @@ async def change_pad_mode():
 
 @app.route("/status", methods=['GET'])
 @ble_operation
-async def get_status():
+async def get_status(ctler):
     await ctler.ask_stats()
     await asyncio.sleep(minimal_cmd_space)
     stats = ctler.last_status
@@ -241,7 +239,7 @@ async def get_status():
 
 @app.route("/history", methods=['GET'])
 @ble_operation
-async def get_history():
+async def get_history(ctler):
     await ctler.ask_hist(0)
     await asyncio.sleep(minimal_cmd_space)
     return last_status
@@ -252,20 +250,34 @@ def save():
 
 @app.route("/startwalk", methods=['POST'])
 @ble_operation
-async def start_walk():
+async def start_walk(ctler):
+    log_with_timestamp("🚀 Starting walk sequence...")
+    
+    # Ensure handler is set up
+    ctler.handler_last_status = on_new_status
+    
+    log_with_timestamp("Step 1: Switching to STANDBY mode")
     await ctler.switch_mode(WalkingPad.MODE_STANDBY) # Ensure we start from a known state, since start_belt is actually toggle_belt
     await asyncio.sleep(minimal_cmd_space)
+    
+    log_with_timestamp("Step 2: Switching to MANUAL mode")  
     await ctler.switch_mode(WalkingPad.MODE_MANUAL)
     await asyncio.sleep(minimal_cmd_space)
+    
+    log_with_timestamp("Step 3: Starting belt")
     await ctler.start_belt()
     await asyncio.sleep(minimal_cmd_space)
+    
+    log_with_timestamp("Step 4: Asking for history")
     await ctler.ask_hist(1)
     await asyncio.sleep(minimal_cmd_space)
+    
+    log_with_timestamp("✅ Walk start sequence completed")
     return last_status
 
 @app.route("/finishwalk", methods=['POST'])
 @ble_operation
-async def finish_walk():
+async def finish_walk(ctler):
     await ctler.switch_mode(WalkingPad.MODE_STANDBY)
     await asyncio.sleep(minimal_cmd_space)
     await ctler.ask_hist(1)
@@ -275,7 +287,7 @@ async def finish_walk():
 
 @app.route("/save_and_stop", methods=['POST'])
 @ble_operation
-async def save_and_stop():
+async def save_and_stop(ctler):
     await ctler.ask_stats()
     await asyncio.sleep(minimal_cmd_space)
     stats = ctler.last_status
@@ -311,7 +323,13 @@ async def save_and_stop():
     return last_status
 
 
-ctler.handler_last_status = on_new_status
+def setup_handlers():
+    """Setup handlers after connection manager is initialized"""
+    global connection_manager
+    initialize_connection_manager()
+    if connection_manager and connection_manager.controller:
+        connection_manager.controller.handler_last_status = on_new_status
 
 if __name__ == '__main__':
+    setup_handlers()
     app.run(debug=True, host='0.0.0.0', port=5678, processes=1, threaded=False)

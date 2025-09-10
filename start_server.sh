@@ -1,5 +1,8 @@
-#! /bin/bash
-source /Users/jargot/opt/anaconda3/etc/profile.d/conda.sh
-conda activate jargot
+#!/bin/bash
 cd /Users/jargot/Projects/walkingpad
-python restserver.py
+
+# Sync dependencies with uv
+uv sync
+
+# Run the server with uv
+uv run python restserver.py
