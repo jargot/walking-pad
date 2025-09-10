@@ -118,11 +118,14 @@ def save_config(config):
 
 
 def initialize_connection_manager():
-    """Initialize the connection manager"""
+    """Initialize the connection manager with auto-recovery"""
     global connection_manager
     if connection_manager is None:
         config = load_config()
         connection_manager = WalkingPadConnectionManager(config['address'])
+        connection_manager.start_monitoring()
+    elif not connection_manager.is_monitoring_thread_alive():
+        log_with_timestamp("Monitor thread died, restarting...")
         connection_manager.start_monitoring()
 
 
@@ -140,7 +143,8 @@ def ble_operation(func):
                 ctler = connection_manager.controller
             else:
                 log_with_timestamp(f"Establishing connection for {func.__name__}")
-                ctler = await connection_manager.get_connection()
+                # Use shorter timeout for API requests to avoid long waits
+                ctler = await connection_manager.get_connection(timeout=15)
             
             # Execute the operation
             result = await func(ctler, *args, **kwargs)

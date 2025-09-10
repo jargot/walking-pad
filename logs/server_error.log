@@ -38588,3 +38588,262 @@ Press CTRL+C to quit
 127.0.0.1 - - [10/Sep/2025 11:14:30] "POST /startwalk HTTP/1.1" 200 -
 127.0.0.1 - - [10/Sep/2025 11:14:36] "POST /startwalk HTTP/1.1" 200 -
 127.0.0.1 - - [10/Sep/2025 11:14:41] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 11:17:58] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 11:37:23] "POST /save_and_stop HTTP/1.1" 200 -
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+OSError: [Errno 28] No space left on device
+OSError: [Errno 28] No space left on device
+Call stack:
+Call stack:
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 275, in notif_handler
+    logger_fnc("Msg: %s" % msg_hex)
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+Message: 'Msg: f8, a2, 05, 00, 02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 02, 00, 00, 00, ab, fd'
+Arguments: ()
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 275, in notif_handler
+    logger_fnc("Msg: %s" % msg_hex)
+Message: 'Msg: f8, a2, 05, 00, 02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 02, 00, 00, 00, ab, fd'
+Arguments: ()
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+OSError: [Errno 28] No space left on device
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+Call stack:
+OSError: [Errno 28] No space left on device
+Call stack:
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 286, in notif_handler
+    logger_fnc("Status: %s" % (m,))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 286, in notif_handler
+    logger_fnc("Status: %s" % (m,))
+Message: 'Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=5, mode=2, app_speed=0.06666666666666667, button=2, rest=0000)'
+Arguments: ()
+Message: 'Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=5, mode=2, app_speed=0.06666666666666667, button=2, rest=0000)'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+--- Logging error ---
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+OSError: [Errno 28] No space left on device
+Call stack:
+Traceback (most recent call last):
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1114, in emit
+    self.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 1094, in flush
+    self.stream.flush()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 286, in notif_handler
+    logger_fnc("Status: %s" % (m,))
+OSError: [Errno 28] No space left on device
+Message: 'Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=5, mode=2, app_speed=0.06666666666666667, button=2, rest=0000)'
+Arguments: ()
+Call stack:
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/jargot/Projects/walkingpad/connection_manager.py", line 180, in run_monitor
+    loop.run_until_complete(self.monitor_and_connect())
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/bleak/backends/corebluetooth/PeripheralDelegate.py", line 426, in did_update_value_for_characteristic
+    notify_callback(bytearray(value))
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/ph4_walkingpad/pad.py", line 286, in notif_handler
+    logger_fnc("Status: %s" % (m,))
+Message: 'Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=5, mode=2, app_speed=0.06666666666666667, button=2, rest=0000)'
+Arguments: ()
+127.0.0.1 - - [10/Sep/2025 14:08:13] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 14:08:15] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 14:36:45] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 14:51:20] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 16:42:35] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 16:42:41] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 17:09:40] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 17:11:06] "POST /startwalk HTTP/1.1" 200 -
+Exception ignored in atexit callback: <function shutdown at 0x102b15800>
+Traceback (most recent call last):
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 2184, in shutdown
+    h.acquire()
+  File "/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/logging/__init__.py", line 927, in acquire
+    self.lock.acquire()
+  File "/Users/jargot/Projects/walkingpad/.venv/lib/python3.11/site-packages/werkzeug/_reloader.py", line 452, in <lambda>
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+                                                ^^^^^^^^^^^
+SystemExit: 0
+/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Resolved 74 packages in 7ms
+Audited 37 packages in 0.07ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 500-565-667
+127.0.0.1 - - [10/Sep/2025 17:12:05] "POST /save_and_stop HTTP/1.1" 200 -
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 125-903-639
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 108-749-732
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 652-201-523
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 802-228-214
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 123-572-020
+ * Detected change in '/Users/jargot/Projects/walkingpad/connection_manager.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 110-991-514
+ * Detected change in '/Users/jargot/Projects/walkingpad/restserver.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 388-829-716
+ * Detected change in '/Users/jargot/Projects/walkingpad/restserver.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 131-149-014
+/Users/jargot/.local/share/uv/python/cpython-3.11.11-macos-aarch64-none/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Resolved 74 packages in 0.41ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 189-419-550
+127.0.0.1 - - [10/Sep/2025 17:16:07] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Sep/2025 17:16:35] "POST /save_and_stop HTTP/1.1" 200 -

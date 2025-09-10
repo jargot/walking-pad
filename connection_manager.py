@@ -26,10 +26,15 @@ class WalkingPadConnectionManager:
         self.log = setup_logging()
         self.connected = False
         self.last_connection_attempt = 0
+        self.last_health_check = 0
+        self.connection_start_time = 0
         self.connection_lock = asyncio.Lock()
         self.monitoring_active = False
+        self.monitor_thread = None
         self.scan_cache = {}
         self.scan_cache_timeout = 30  # seconds
+        self.health_check_interval = 30  # seconds
+        self.max_connection_age = 300  # 5 minutes max before reconnect
         
     async def scan_for_device(self):
         """Scan for WalkingPad device before attempting connection"""
@@ -94,6 +99,7 @@ class WalkingPadConnectionManager:
                     
                     self.connected = True
                     self.last_connection_attempt = time.time()
+                    self.connection_start_time = time.time()
                     log_with_timestamp("✅ Connected successfully with exponential backoff!")
                     return True
                     
@@ -146,63 +152,138 @@ class WalkingPadConnectionManager:
             
         return power_connected or external_display
     
+    def is_connection_stale(self):
+        """Check if connection is too old and should be refreshed"""
+        if not self.connected:
+            return False
+        
+        connection_age = time.time() - self.connection_start_time
+        return connection_age > self.max_connection_age
+    
+    def is_monitoring_thread_alive(self):
+        """Check if monitoring thread is still alive"""
+        return self.monitor_thread and self.monitor_thread.is_alive()
+    
+    async def health_check(self):
+        """Perform connection health check"""
+        try:
+            current_time = time.time()
+            
+            # Don't check too frequently
+            if current_time - self.last_health_check < self.health_check_interval:
+                return True
+            
+            self.last_health_check = current_time
+            
+            if self.connected:
+                # Test if connection is responsive
+                await self.controller.ask_stats()
+                
+                # Check if connection is stale
+                if self.is_connection_stale():
+                    log_with_timestamp("Connection is stale, forcing reconnect")
+                    self.connected = False
+                    return False
+                
+                log_with_timestamp("Health check passed")
+                return True
+            
+            return False
+            
+        except Exception as e:
+            log_with_timestamp(f"Health check failed: {e}")
+            self.connected = False
+            return False
+    
     async def monitor_and_connect(self):
         """Background task to monitor system events and maintain connection"""
         log_with_timestamp("🔍 Starting connection monitoring...")
         
         while self.monitoring_active:
             try:
+                # Health check for existing connections
+                if self.connected:
+                    await self.health_check()
+                
+                # Attempt connection if not connected and conditions are right
                 if not self.connected and self.should_attempt_connection():
                     log_with_timestamp("📱 Power/display detected - attempting WalkingPad connection...")
                     await self.connect_with_exponential_backoff()
-                
-                elif self.connected:
-                    # Periodic connection health check
-                    try:
-                        await self.controller.ask_stats()
-                    except:
-                        log_with_timestamp("Connection health check failed, marking as disconnected")
-                        self.connected = False
                 
                 await asyncio.sleep(10)  # Check every 10 seconds
                 
             except Exception as e:
                 log_with_timestamp(f"Monitor error: {e}")
+                # Mark as disconnected on critical errors
+                self.connected = False
                 await asyncio.sleep(30)  # Wait longer on errors
     
     def start_monitoring(self):
-        """Start the background monitoring"""
+        """Start the background monitoring with auto-recovery"""
         self.monitoring_active = True
-        
-        def run_monitor():
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(self.monitor_and_connect())
-        
-        monitor_thread = threading.Thread(target=run_monitor, daemon=True)
-        monitor_thread.start()
+        self._start_monitor_thread()
         log_with_timestamp("✅ Connection monitoring started")
+    
+    def _start_monitor_thread(self):
+        """Start the actual monitoring thread"""
+        def run_monitor():
+            try:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                loop.run_until_complete(self.monitor_and_connect())
+            except Exception as e:
+                log_with_timestamp(f"Monitor thread crashed: {e}")
+                # Auto-recovery: restart the thread after delay
+                if self.monitoring_active:
+                    log_with_timestamp("Attempting monitor thread auto-recovery...")
+                    time.sleep(5)
+                    self._start_monitor_thread()
+        
+        self.monitor_thread = threading.Thread(target=run_monitor, daemon=True)
+        self.monitor_thread.start()
     
     def stop_monitoring(self):
         """Stop the background monitoring"""
         self.monitoring_active = False
         log_with_timestamp("⏹️  Connection monitoring stopped")
     
-    async def get_connection(self):
-        """Get a connection, attempting to connect if necessary"""
-        if self.connected:
-            return self.controller
-            
-        # Quick connection attempt if scan cache is valid
-        if self.is_scan_cache_valid():
-            if await self.connect_with_exponential_backoff(max_attempts=3):
-                return self.controller
+    async def get_connection(self, timeout=30):
+        """Get a connection, attempting to connect if necessary with timeout"""
+        start_time = time.time()
         
-        # Fallback to scanning + connecting
-        if await self.connect_with_exponential_backoff():
-            return self.controller
-            
-        raise Exception("Unable to establish WalkingPad connection")
+        # Check if we have a healthy connection
+        if self.connected:
+            try:
+                # Quick health check to ensure connection is responsive
+                await asyncio.wait_for(self.controller.ask_stats(), timeout=3.0)
+                return self.controller
+            except asyncio.TimeoutError:
+                log_with_timestamp("Connection timeout during health check, marking as disconnected")
+                self.connected = False
+            except Exception as e:
+                log_with_timestamp(f"Connection health check failed: {e}")
+                self.connected = False
+        
+        # Attempt connection within timeout
+        while time.time() - start_time < timeout:
+            try:
+                # Quick connection attempt if scan cache is valid
+                if self.is_scan_cache_valid():
+                    if await self.connect_with_exponential_backoff(max_attempts=2):
+                        return self.controller
+                
+                # Fallback to scanning + connecting
+                if await self.connect_with_exponential_backoff(max_attempts=3):
+                    return self.controller
+                    
+                # Wait before retry
+                await asyncio.sleep(2)
+                
+            except Exception as e:
+                log_with_timestamp(f"Connection attempt failed: {e}")
+                await asyncio.sleep(1)
+        
+        raise Exception(f"Unable to establish WalkingPad connection within {timeout}s timeout")
 
 
 # Usage example/test
