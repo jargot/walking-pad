@@ -2,6 +2,7 @@ from flask import Flask, request
 from ph4_walkingpad import pad
 from ph4_walkingpad.pad import WalkingPad, Controller
 from ph4_walkingpad.utils import setup_logging
+import logging
 import asyncio
 import yaml
 import psycopg2
@@ -27,6 +28,10 @@ minimal_cmd_space = 0.69
 
 log = setup_logging()
 pad.logger = log
+
+# Mute very verbose BLE status logs from the library to keep launchd logs sane
+logging.getLogger("ph4_walkingpad.pad").setLevel(logging.WARNING)
+logging.getLogger("bleak").setLevel(logging.WARNING)
 
 # Initialize connection manager
 connection_manager = None
@@ -147,11 +152,19 @@ def ble_operation(func):
                 ctler = await connection_manager.get_connection(timeout=15)
             
             # Execute the operation
-            result = await func(ctler, *args, **kwargs)
+            # Bound each operation to avoid hanging the server if BLE stalls
+            result = await asyncio.wait_for(func(ctler, *args, **kwargs), timeout=20)
             return result
             
         except Exception as e:
-            log_with_timestamp(f"BLE operation failed: {e}")
+            error_msg = str(e)
+            if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+                log_with_timestamp(f"BLE operation disconnection: {error_msg}")
+                # Mark connection as failed to trigger reconnect
+                if connection_manager:
+                    connection_manager.connected = False
+            else:
+                log_with_timestamp(f"BLE operation failed: {e}")
             return {"error": str(e)}, 500
     return wrapper
 
@@ -336,4 +349,5 @@ def setup_handlers():
 
 if __name__ == '__main__':
     setup_handlers()
-    app.run(debug=True, host='0.0.0.0', port=5678, processes=1, threaded=False)
+    # Enable multithreading and disable debug/reloader for stability when run as a service
+    app.run(debug=False, use_reloader=False, host='0.0.0.0', port=5678, processes=1, threaded=True)

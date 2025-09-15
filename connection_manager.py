@@ -23,18 +23,27 @@ class WalkingPadConnectionManager:
     def __init__(self, address):
         self.address = address
         self.controller = Controller()
+        # Reduce very chatty INFO logs from ph4_walkingpad on every BLE notification
+        # to avoid filling launchd-managed stdout/stderr logs.
+        self.controller.log_messages_info = False
         self.log = setup_logging()
         self.connected = False
         self.last_connection_attempt = 0
         self.last_health_check = 0
         self.connection_start_time = 0
-        self.connection_lock = asyncio.Lock()
+        # Avoid simultaneous connect attempts; use threading lock since we have multiple loops
+        # across threads (monitor thread + request loop)
+        import threading as _threading
+        self._connect_lock = _threading.Lock()
         self.monitoring_active = False
         self.monitor_thread = None
         self.scan_cache = {}
         self.scan_cache_timeout = 30  # seconds
         self.health_check_interval = 30  # seconds
-        self.max_connection_age = 300  # 5 minutes max before reconnect
+        self.max_connection_age = 180  # 3 minutes max before reconnect (reduced for stability)
+        # Timeouts (seconds)
+        self.ble_connect_timeout = 10.0
+        self.ble_cmd_timeout = 5.0
         
     async def scan_for_device(self):
         """Scan for WalkingPad device before attempting connection"""
@@ -69,58 +78,92 @@ class WalkingPadConnectionManager:
     
     async def connect_with_exponential_backoff(self, max_attempts=5):
         """Connect with exponential backoff strategy"""
-        async with self.connection_lock:
+        # Guard against concurrent connection attempts across threads/loops
+        if not self._connect_lock.acquire(blocking=False):
+            # Another attempt in progress; wait briefly and report current state
+            await asyncio.sleep(0.1)
+            return self.connected
+
+        try:
             if self.connected:
                 return True
-                
+
             # Use cached scan result if available, otherwise scan first
             if not self.is_scan_cache_valid():
                 if not await self.scan_for_device():
                     log_with_timestamp("Device not found in scan, skipping connection attempt")
                     return False
-            
+
             base_delay = 0.5  # Start with 500ms
             max_delay = 8.0   # Cap at 8 seconds
-            
+
             for attempt in range(max_attempts):
                 try:
                     delay = min(base_delay * (2 ** attempt), max_delay)
-                    
+
                     if attempt > 0:
                         log_with_timestamp(f"Waiting {delay:.1f}s before attempt {attempt + 1}")
                         await asyncio.sleep(delay)
-                    
+
                     log_with_timestamp(f"Connection attempt {attempt + 1}/{max_attempts}")
-                    await self.controller.run(self.address)
-                    
+                    # Bound BLE connect and probe with timeouts to avoid hanging
+                    await asyncio.wait_for(self.controller.run(self.address), timeout=self.ble_connect_timeout)
+
                     # Test connection with a quick status request
                     await asyncio.sleep(0.1)
-                    await self.controller.ask_stats()
-                    
+                    await asyncio.wait_for(self.controller.ask_stats(), timeout=self.ble_cmd_timeout)
+
                     self.connected = True
                     self.last_connection_attempt = time.time()
                     self.connection_start_time = time.time()
                     log_with_timestamp("✅ Connected successfully with exponential backoff!")
                     return True
-                    
+
+                except asyncio.TimeoutError:
+                    log_with_timestamp(f"Attempt {attempt + 1} timed out during BLE operation")
+                    self.connected = False
+                    # Best-effort disconnect to reset state
+                    try:
+                        await asyncio.wait_for(self.controller.disconnect(), timeout=2.0)
+                    except Exception:
+                        pass
+                    if attempt == max_attempts - 1:
+                        log_with_timestamp(f"❌ All {max_attempts} connection attempts timed out")
                 except Exception as e:
-                    log_with_timestamp(f"Attempt {attempt + 1} failed: {e}")
+                    # Handle BleakError and other BLE exceptions gracefully
+                    error_msg = str(e)
+                    if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+                        log_with_timestamp(f"Attempt {attempt + 1} BLE disconnection: {error_msg}")
+                    else:
+                        log_with_timestamp(f"Attempt {attempt + 1} failed: {e}")
+
+                    self.connected = False
+                    # Clean disconnect on any error
+                    try:
+                        await asyncio.wait_for(self.controller.disconnect(), timeout=1.0)
+                    except Exception:
+                        pass
+
                     if attempt == max_attempts - 1:
                         log_with_timestamp(f"❌ All {max_attempts} connection attempts failed")
-                        
+
             return False
+        finally:
+            try:
+                self._connect_lock.release()
+            except Exception:
+                pass
     
     async def disconnect_safe(self):
         """Safely disconnect"""
-        async with self.connection_lock:
-            if self.connected:
-                try:
-                    await self.controller.disconnect()
-                    self.connected = False
-                    log_with_timestamp("Disconnected safely")
-                except Exception as e:
-                    log_with_timestamp(f"Disconnect error: {e}")
-                    self.connected = False
+        if self.connected:
+            try:
+                await asyncio.wait_for(self.controller.disconnect(), timeout=3.0)
+                self.connected = False
+                log_with_timestamp("Disconnected safely")
+            except Exception as e:
+                log_with_timestamp(f"Disconnect error: {e}")
+                self.connected = False
     
     def check_power_connected(self):
         """Check if laptop is connected to power (macOS)"""
@@ -141,16 +184,13 @@ class WalkingPadConnectionManager:
             return False
     
     def should_attempt_connection(self):
-        """Determine if we should attempt connection based on system state"""
-        power_connected = self.check_power_connected()
-        external_display = self.check_external_display()
-        
-        # Don't attempt too frequently
+        """Always attempt connection - we want to maintain it whenever possible"""
+        # Don't attempt too frequently to avoid spamming
         time_since_last = time.time() - self.last_connection_attempt
-        if time_since_last < 30:  # Wait at least 30 seconds between attempts
+        if time_since_last < 5:  # Reduced to 5 seconds for more responsive connection
             return False
-            
-        return power_connected or external_display
+
+        return True  # Always try to connect when not connected
     
     def is_connection_stale(self):
         """Check if connection is too old and should be refreshed"""
@@ -177,7 +217,7 @@ class WalkingPadConnectionManager:
             
             if self.connected:
                 # Test if connection is responsive
-                await self.controller.ask_stats()
+                await asyncio.wait_for(self.controller.ask_stats(), timeout=self.ble_cmd_timeout)
                 
                 # Check if connection is stale
                 if self.is_connection_stale():
@@ -191,32 +231,48 @@ class WalkingPadConnectionManager:
             return False
             
         except Exception as e:
-            log_with_timestamp(f"Health check failed: {e}")
+            error_msg = str(e)
+            if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+                log_with_timestamp(f"Health check BLE disconnection: {error_msg}")
+            else:
+                log_with_timestamp(f"Health check failed: {e}")
             self.connected = False
             return False
     
     async def monitor_and_connect(self):
-        """Background task to monitor system events and maintain connection"""
-        log_with_timestamp("🔍 Starting connection monitoring...")
-        
+        """Background task to continuously scan for and maintain WalkingPad connection"""
+        log_with_timestamp("🔍 Starting always-on WalkingPad monitoring...")
+
         while self.monitoring_active:
             try:
                 # Health check for existing connections
                 if self.connected:
-                    await self.health_check()
-                
-                # Attempt connection if not connected and conditions are right
+                    health_ok = await self.health_check()
+                    if not health_ok:
+                        log_with_timestamp("Health check failed, will attempt reconnection")
+                        self.connected = False
+                        # Force disconnect to clean up
+                        try:
+                            await asyncio.wait_for(self.controller.disconnect(), timeout=2.0)
+                        except Exception:
+                            pass
+
+                # Always attempt connection if not connected (continuous scanning strategy)
                 if not self.connected and self.should_attempt_connection():
-                    log_with_timestamp("📱 Power/display detected - attempting WalkingPad connection...")
-                    await self.connect_with_exponential_backoff()
-                
+                    log_with_timestamp("🔄 Continuously scanning for WalkingPad...")
+                    success = await self.connect_with_exponential_backoff()
+                    if success:
+                        log_with_timestamp("✅ WalkingPad connection established!")
+                    else:
+                        log_with_timestamp("❌ Connection failed, will retry soon")
+
                 await asyncio.sleep(10)  # Check every 10 seconds
-                
+
             except Exception as e:
                 log_with_timestamp(f"Monitor error: {e}")
                 # Mark as disconnected on critical errors
                 self.connected = False
-                await asyncio.sleep(30)  # Wait longer on errors
+                await asyncio.sleep(15)  # Shorter wait on errors for faster recovery
     
     def start_monitoring(self):
         """Start the background monitoring with auto-recovery"""
@@ -255,13 +311,17 @@ class WalkingPadConnectionManager:
         if self.connected:
             try:
                 # Quick health check to ensure connection is responsive
-                await asyncio.wait_for(self.controller.ask_stats(), timeout=3.0)
+                await asyncio.wait_for(self.controller.ask_stats(), timeout=self.ble_cmd_timeout)
                 return self.controller
             except asyncio.TimeoutError:
                 log_with_timestamp("Connection timeout during health check, marking as disconnected")
                 self.connected = False
             except Exception as e:
-                log_with_timestamp(f"Connection health check failed: {e}")
+                error_msg = str(e)
+                if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+                    log_with_timestamp(f"Connection health check BLE disconnection: {error_msg}")
+                else:
+                    log_with_timestamp(f"Connection health check failed: {e}")
                 self.connected = False
         
         # Attempt connection within timeout
@@ -269,18 +329,31 @@ class WalkingPadConnectionManager:
             try:
                 # Quick connection attempt if scan cache is valid
                 if self.is_scan_cache_valid():
-                    if await self.connect_with_exponential_backoff(max_attempts=2):
-                        return self.controller
+                    try:
+                        remaining = max(1.0, timeout - (time.time() - start_time))
+                        if await asyncio.wait_for(self.connect_with_exponential_backoff(max_attempts=2), timeout=remaining):
+                            return self.controller
+                    except asyncio.TimeoutError:
+                        log_with_timestamp("Timed out during fast connect attempts")
+                        pass
                 
                 # Fallback to scanning + connecting
-                if await self.connect_with_exponential_backoff(max_attempts=3):
-                    return self.controller
+                try:
+                    remaining = max(1.0, timeout - (time.time() - start_time))
+                    if await asyncio.wait_for(self.connect_with_exponential_backoff(max_attempts=3), timeout=remaining):
+                        return self.controller
+                except asyncio.TimeoutError:
+                    log_with_timestamp("Timed out during connect attempts")
                     
                 # Wait before retry
                 await asyncio.sleep(2)
                 
             except Exception as e:
-                log_with_timestamp(f"Connection attempt failed: {e}")
+                error_msg = str(e)
+                if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+                    log_with_timestamp(f"Connection attempt BLE disconnection: {error_msg}")
+                else:
+                    log_with_timestamp(f"Connection attempt failed: {e}")
                 await asyncio.sleep(1)
         
         raise Exception(f"Unable to establish WalkingPad connection within {timeout}s timeout")
