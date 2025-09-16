@@ -53,37 +53,56 @@ async def start_walking(address):
     start_time = time.time()
 
     try:
-        # Step 1: Discover
-        device = await discover_walkingpad(address)
-
-        # Step 2: Connect
-        log_with_timestamp("📱 Connecting to WalkingPad...")
+        # Step 1: Connect directly to known address
+        connect_start = time.time()
+        log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
         controller = Controller()
         controller.log_messages_info = False
         await controller.run(address)
+        connect_elapsed = time.time() - connect_start
+        log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
 
         # Step 3: Start sequence
+        sequence_start = time.time()
         log_with_timestamp("🚀 Starting walk sequence...")
 
+        step_start = time.time()
         log_with_timestamp("  → Switching to STANDBY mode")
         await controller.switch_mode(WalkingPad.MODE_STANDBY)
         await asyncio.sleep(0.7)
+        step_elapsed = time.time() - step_start
+        log_with_timestamp(f"    ⏱️  STANDBY switch: {step_elapsed:.1f}s")
 
+        step_start = time.time()
         log_with_timestamp("  → Switching to MANUAL mode")
         await controller.switch_mode(WalkingPad.MODE_MANUAL)
         await asyncio.sleep(0.7)
+        step_elapsed = time.time() - step_start
+        log_with_timestamp(f"    ⏱️  MANUAL switch: {step_elapsed:.1f}s")
 
+        step_start = time.time()
         log_with_timestamp("  → Starting belt")
         await controller.start_belt()
         await asyncio.sleep(0.7)
+        step_elapsed = time.time() - step_start
+        log_with_timestamp(f"    ⏱️  Belt start: {step_elapsed:.1f}s")
 
+        step_start = time.time()
         log_with_timestamp("  → Getting history")
         await controller.ask_hist(1)
         await asyncio.sleep(0.7)
+        step_elapsed = time.time() - step_start
+        log_with_timestamp(f"    ⏱️  History request: {step_elapsed:.1f}s")
+
+        sequence_elapsed = time.time() - sequence_start
+        log_with_timestamp(f"⏱️  Walk sequence completed in {sequence_elapsed:.1f}s")
 
         # Step 4: Disconnect cleanly
+        disconnect_start = time.time()
         log_with_timestamp("📱 Disconnecting...")
         await controller.disconnect()
+        disconnect_elapsed = time.time() - disconnect_start
+        log_with_timestamp(f"⏱️  Disconnect completed in {disconnect_elapsed:.1f}s")
 
         elapsed = time.time() - start_time
         log_with_timestamp(f"✅ Walk started successfully in {elapsed:.1f}s")

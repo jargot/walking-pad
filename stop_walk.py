@@ -95,11 +95,8 @@ async def stop_walking(address):
     workout_data = {"steps": 0, "distance": 0.0, "time": 0}
 
     try:
-        # Step 1: Discover
-        device = await discover_walkingpad(address)
-
-        # Step 2: Connect
-        log_with_timestamp("📱 Connecting to WalkingPad...")
+        # Step 1: Connect directly to known address
+        log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
         controller = Controller()
         controller.log_messages_info = False
         await controller.run(address)

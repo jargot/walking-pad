@@ -5,4 +5,4 @@ cd /Users/jargot/Projects/walkingpad
 uv sync
 
 # Run the server with uv
-uv run python restserver.py
+uv run python simple_server.py
