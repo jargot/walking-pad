@@ -62,37 +62,23 @@ async def start_walking(address):
         connect_elapsed = time.time() - connect_start
         log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
 
-        # Step 3: Start sequence
+        # Step 3: Start sequence (optimized)
         sequence_start = time.time()
         log_with_timestamp("🚀 Starting walk sequence...")
 
         step_start = time.time()
-        log_with_timestamp("  → Switching to STANDBY mode")
-        await controller.switch_mode(WalkingPad.MODE_STANDBY)
-        await asyncio.sleep(0.7)
-        step_elapsed = time.time() - step_start
-        log_with_timestamp(f"    ⏱️  STANDBY switch: {step_elapsed:.1f}s")
-
-        step_start = time.time()
         log_with_timestamp("  → Switching to MANUAL mode")
         await controller.switch_mode(WalkingPad.MODE_MANUAL)
-        await asyncio.sleep(0.7)
+        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
         step_elapsed = time.time() - step_start
         log_with_timestamp(f"    ⏱️  MANUAL switch: {step_elapsed:.1f}s")
 
         step_start = time.time()
         log_with_timestamp("  → Starting belt")
         await controller.start_belt()
-        await asyncio.sleep(0.7)
+        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
         step_elapsed = time.time() - step_start
         log_with_timestamp(f"    ⏱️  Belt start: {step_elapsed:.1f}s")
-
-        step_start = time.time()
-        log_with_timestamp("  → Getting history")
-        await controller.ask_hist(1)
-        await asyncio.sleep(0.7)
-        step_elapsed = time.time() - step_start
-        log_with_timestamp(f"    ⏱️  History request: {step_elapsed:.1f}s")
 
         sequence_elapsed = time.time() - sequence_start
         log_with_timestamp(f"⏱️  Walk sequence completed in {sequence_elapsed:.1f}s")

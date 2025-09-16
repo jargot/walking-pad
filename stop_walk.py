@@ -119,11 +119,11 @@ async def stop_walking(address):
 
         log_with_timestamp("  → Switching to STANDBY mode")
         await controller.switch_mode(WalkingPad.MODE_STANDBY)
-        await asyncio.sleep(0.7)
+        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
 
         log_with_timestamp("  → Getting final history")
         await controller.ask_hist(1)
-        await asyncio.sleep(0.7)
+        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
 
         # Step 5: Save to database
         db_success = store_in_db(

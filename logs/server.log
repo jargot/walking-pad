@@ -31833,3 +31833,13 @@ Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=0, mode=
 [2025-09-16 11:42:10.614] ✅ All scripts found
  * Serving Flask app 'simple_server'
  * Debug mode: off
+[2025-09-16 11:46:12.076] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-09-16 11:46:12.076] 📋 Approach: Always discover → connect → command → disconnect
+[2025-09-16 11:46:12.076] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2025-09-16 11:47:26.385] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-09-16 11:47:26.385] 📋 Approach: Always discover → connect → command → disconnect
+[2025-09-16 11:47:26.385] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
