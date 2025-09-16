@@ -13,11 +13,32 @@ from ph4_walkingpad.pad import WalkingPad, Controller
 from ph4_walkingpad.utils import setup_logging
 from bleak import BleakScanner
 from dotenv import load_dotenv
+import sys
 
 def log_with_timestamp(message):
     """Print message with timestamp"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     print(f"[{timestamp}] {message}")
+
+def reset_bleak_cache():
+    """Force clear Bleak's internal BLE adapter state"""
+    try:
+        log_with_timestamp("🔄 Resetting Bleak BLE cache after connection failure...")
+
+        # Clear Bleak's global scanner instances
+        import bleak
+        if hasattr(bleak, '_scanner_backends'):
+            bleak._scanner_backends.clear()
+
+        # Force garbage collection to clear any lingering BLE state
+        import gc
+        gc.collect()
+
+        log_with_timestamp("✅ Bleak cache reset complete")
+        return True
+    except Exception as e:
+        log_with_timestamp(f"⚠️  Bleak reset failed: {e}")
+        return False
 
 def load_config():
     """Load WalkingPad address from config"""
@@ -49,18 +70,41 @@ async def discover_walkingpad(address, timeout=15):
     raise Exception(f"WalkingPad {address} not found in {len(devices)} discovered devices")
 
 async def start_walking(address):
-    """Complete start walking sequence"""
+    """Complete start walking sequence with BLE reset fallback"""
     start_time = time.time()
+    max_attempts = 2  # Try once, then reset and try again
+
+    for attempt in range(max_attempts):
+        try:
+            if attempt > 0:
+                log_with_timestamp(f"🔄 Attempt {attempt + 1} after Bleak reset...")
+
+            # Step 1: Connect directly to known address
+            connect_start = time.time()
+            log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
+            controller = Controller()
+            controller.log_messages_info = False
+            await asyncio.wait_for(controller.run(address), timeout=8.0)  # 8s timeout
+            connect_elapsed = time.time() - connect_start
+            log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
+
+            # Connection succeeded, break out of retry loop
+            break
+
+        except (asyncio.TimeoutError, Exception) as e:
+            if attempt == 0:  # First attempt failed
+                log_with_timestamp(f"⚠️  First connection attempt failed: {e}")
+                # Reset Bleak cache and try again
+                reset_bleak_cache()
+                await asyncio.sleep(1)  # Brief pause after reset
+                continue
+            else:
+                # Second attempt also failed
+                elapsed = time.time() - start_time
+                log_with_timestamp(f"❌ Start walk failed after BLE reset attempt: {e}")
+                return {"success": False, "error": str(e), "time": elapsed}
 
     try:
-        # Step 1: Connect directly to known address
-        connect_start = time.time()
-        log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
-        controller = Controller()
-        controller.log_messages_info = False
-        await controller.run(address)
-        connect_elapsed = time.time() - connect_start
-        log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
 
         # Step 3: Start sequence (optimized)
         sequence_start = time.time()

@@ -328,3 +328,21 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://192.168.1.153:5678
 Press CTRL+C to quit
 127.0.0.1 - - [16/Sep/2025 11:47:36] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 0.69ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [16/Sep/2025 14:24:00] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.33ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [16/Sep/2025 14:29:59] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 14:30:20] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 15:21:39] "POST /startwalk HTTP/1.1" 200 -
