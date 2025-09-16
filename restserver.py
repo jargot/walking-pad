@@ -135,12 +135,15 @@ def initialize_connection_manager():
 
 
 def ble_operation(func):
-    """Decorator for BLE operations using connection manager"""
+    """Decorator for BLE operations with fast retry on slow connections"""
     @wraps(func)
     async def wrapper(*args, **kwargs):
         global connection_manager
         initialize_connection_manager()
-        
+
+        # First attempt - should be fast if connection is healthy
+        start_time = time.time()
+
         try:
             # Use the already-connected controller if available
             if connection_manager.connected:
@@ -148,17 +151,64 @@ def ble_operation(func):
                 ctler = connection_manager.controller
             else:
                 log_with_timestamp(f"Establishing connection for {func.__name__}")
-                # Use shorter timeout for API requests to avoid long waits
-                ctler = await connection_manager.get_connection(timeout=15)
-            
-            # Execute the operation
-            # Bound each operation to avoid hanging the server if BLE stalls
-            result = await asyncio.wait_for(func(ctler, *args, **kwargs), timeout=20)
+                # Use shorter timeout for first attempt
+                ctler = await connection_manager.get_connection(timeout=8)
+
+            # Execute the operation with a tight timeout
+            result = await asyncio.wait_for(func(ctler, *args, **kwargs), timeout=5)
+
+            elapsed = time.time() - start_time
+            log_with_timestamp(f"{func.__name__} completed in {elapsed:.1f}s")
             return result
-            
+
+        except asyncio.TimeoutError:
+            elapsed = time.time() - start_time
+            log_with_timestamp(f"{func.__name__} timed out after {elapsed:.1f}s - forcing connection reset and retry")
+
+            # Force connection reset
+            if connection_manager:
+                connection_manager.connected = False
+                await connection_manager.disconnect_safe()
+
+            # Immediate retry with fresh connection
+            try:
+                log_with_timestamp(f"Retry attempt for {func.__name__}")
+                ctler = await connection_manager.get_connection(timeout=10)
+                result = await asyncio.wait_for(func(ctler, *args, **kwargs), timeout=8)
+
+                total_elapsed = time.time() - start_time
+                log_with_timestamp(f"{func.__name__} completed on retry in {total_elapsed:.1f}s total")
+                return result
+
+            except Exception as e:
+                log_with_timestamp(f"Retry also failed: {e}")
+                return {"error": f"Connection failed after retry: {str(e)}"}, 500
+
         except Exception as e:
             error_msg = str(e)
-            if "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
+            if "unable to establish walkingpad connection" in error_msg.lower():
+                log_with_timestamp(f"Connection establishment failed - forcing aggressive reset and retry")
+
+                # Force complete reset of connection manager
+                if connection_manager:
+                    connection_manager.connected = False
+                    await connection_manager.disconnect_safe()
+
+                # Immediate retry with fresh connection after reset
+                try:
+                    log_with_timestamp(f"Aggressive retry for {func.__name__} after connection failure")
+                    ctler = await connection_manager.get_connection(timeout=12)
+                    result = await asyncio.wait_for(func(ctler, *args, **kwargs), timeout=8)
+
+                    total_elapsed = time.time() - start_time
+                    log_with_timestamp(f"{func.__name__} completed after aggressive retry in {total_elapsed:.1f}s total")
+                    return result
+
+                except Exception as retry_e:
+                    log_with_timestamp(f"Aggressive retry also failed: {retry_e}")
+                    return {"error": f"Connection failed even after aggressive retry: {str(retry_e)}"}, 500
+
+            elif "disconnected" in error_msg.lower() or "bleak" in str(type(e)).lower():
                 log_with_timestamp(f"BLE operation disconnection: {error_msg}")
                 # Mark connection as failed to trigger reconnect
                 if connection_manager:

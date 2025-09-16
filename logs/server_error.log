@@ -202,3 +202,96 @@ bleak.exc.BleakError: disconnected
 127.0.0.1 - - [15/Sep/2025 15:46:15] "POST /startwalk HTTP/1.1" 500 -
 127.0.0.1 - - [15/Sep/2025 15:46:19] "POST /save_and_stop HTTP/1.1" 500 -
 127.0.0.1 - - [15/Sep/2025 15:47:14] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.36ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Sep/2025 15:49:53] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 15:49:59] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 17:55:44] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Sep/2025 17:56:04] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Sep/2025 17:58:49] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Sep/2025 17:59:11] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Sep/2025 18:12:01] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 1ms
+Audited 37 packages in 0.07ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Sep/2025 18:19:13] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 19:26:50] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.75ms
+Audited 37 packages in 0.05ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Sep/2025 19:32:50] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 19:33:12] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 19:33:18] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 20:34:58] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Sep/2025 20:40:18] "GET /status HTTP/1.1" 500 -
+Resolved 74 packages in 0.35ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Sep/2025 20:43:25] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 20:44:13] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 21:41:25] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.40ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Sep/2025 21:42:50] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Sep/2025 21:42:51] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 11:09:31] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [16/Sep/2025 11:09:43] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.58ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [16/Sep/2025 11:11:30] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 11:28:44] "POST /save_and_stop HTTP/1.1" 500 -
+Resolved 74 packages in 0.39ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+Resolved 74 packages in 1ms
+Audited 37 packages in 0.06ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+Resolved 74 packages in 0.32ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+Resolved 74 packages in 0.36ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
