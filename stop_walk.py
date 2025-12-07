@@ -20,6 +20,26 @@ def log_with_timestamp(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     print(f"[{timestamp}] {message}")
 
+def reset_bleak_cache():
+    """Force clear Bleak's internal BLE adapter state (helps intermittent failures)."""
+    try:
+        log_with_timestamp("🔄 Resetting Bleak BLE cache after connection failure...")
+
+        # Clear Bleak's global scanner instances
+        import bleak
+        if hasattr(bleak, '_scanner_backends'):
+            bleak._scanner_backends.clear()
+
+        # Force garbage collection to clear any lingering BLE state
+        import gc
+        gc.collect()
+
+        log_with_timestamp("✅ Bleak cache reset complete")
+        return True
+    except Exception as e:
+        log_with_timestamp(f"⚠️  Bleak reset failed: {e}")
+        return False
+
 def load_config():
     """Load WalkingPad address from config"""
     load_dotenv()
@@ -90,21 +110,41 @@ async def discover_walkingpad(address, timeout=15):
     raise Exception(f"WalkingPad {address} not found in {len(devices)} discovered devices")
 
 async def stop_walking(address):
-    """Complete stop walking sequence with database save"""
+    """Complete stop walking sequence with database save, with retries/timeouts."""
     start_time = time.time()
     workout_data = {"steps": 0, "distance": 0.0, "time": 0}
 
-    try:
-        # Step 1: Connect directly to known address
-        log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
-        controller = Controller()
-        controller.log_messages_info = False
-        await controller.run(address)
+    # Step 1: Connect with a retry after resetting Bleak cache (mirrors start_walk.py)
+    controller = Controller()
+    controller.log_messages_info = False
 
-        # Step 3: Get current stats before stopping
+    max_attempts = 2
+    for attempt in range(max_attempts):
+        try:
+            if attempt > 0:
+                log_with_timestamp(f"🔄 Attempt {attempt + 1} after Bleak reset...")
+            log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
+            connect_start = time.time()
+            await asyncio.wait_for(controller.run(address), timeout=8.0)
+            connect_elapsed = time.time() - connect_start
+            log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
+            break
+        except Exception as e:
+            if attempt == 0:
+                log_with_timestamp(f"⚠️  First connection attempt failed: {e}")
+                reset_bleak_cache()
+                await asyncio.sleep(1)
+                continue
+            else:
+                elapsed = time.time() - start_time
+                log_with_timestamp(f"❌ Stop walk failed after BLE reset attempt: {e}")
+                return {"success": False, "error": str(e), "time": elapsed, "workout": workout_data}
+
+    try:
+        # Step 2: Get current stats before stopping (with timeout)
         log_with_timestamp("📊 Getting workout statistics...")
-        await controller.ask_stats()
-        await asyncio.sleep(0.5)
+        await asyncio.wait_for(controller.ask_stats(), timeout=3.0)
+        await asyncio.sleep(0.2)
 
         if hasattr(controller, 'last_status') and controller.last_status:
             stats = controller.last_status
@@ -114,27 +154,30 @@ async def stop_walking(address):
 
             log_with_timestamp(f"📈 Workout stats: {workout_data['steps']} steps, {workout_data['distance']:.2f}km, {workout_data['time']}s")
 
-        # Step 4: Stop sequence
+        # Step 3: Stop sequence
         log_with_timestamp("🛑 Stopping walk sequence...")
 
         log_with_timestamp("  → Switching to STANDBY mode")
-        await controller.switch_mode(WalkingPad.MODE_STANDBY)
-        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
+        await asyncio.wait_for(controller.switch_mode(WalkingPad.MODE_STANDBY), timeout=3.0)
+        await asyncio.sleep(0.1)
 
         log_with_timestamp("  → Getting final history")
-        await controller.ask_hist(1)
-        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
+        await asyncio.wait_for(controller.ask_hist(1), timeout=3.0)
+        await asyncio.sleep(0.1)
 
-        # Step 5: Save to database
+        # Step 4: Save to database
         db_success = store_in_db(
             workout_data["steps"],
             workout_data["distance"],
             workout_data["time"]
         )
 
-        # Step 6: Disconnect cleanly
+        # Step 5: Disconnect cleanly (best effort)
         log_with_timestamp("📱 Disconnecting...")
-        await controller.disconnect()
+        try:
+            await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+        except Exception as e:
+            log_with_timestamp(f"⚠️  Disconnect warning: {e}")
 
         elapsed = time.time() - start_time
         log_with_timestamp(f"✅ Walk stopped successfully in {elapsed:.1f}s")

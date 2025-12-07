@@ -21,6 +21,19 @@ def log_with_timestamp(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     print(f"[{timestamp}] {message}")
 
+def extract_metrics(lines):
+    """Return parsed metric dictionaries from stdout lines"""
+    metrics = []
+    for line in lines:
+        if line.startswith('[METRIC] '):
+            payload = line[len('[METRIC] '):]
+            try:
+                metrics.append(json.loads(payload))
+            except json.JSONDecodeError as exc:
+                log_with_timestamp(f"⚠️  Failed to parse metric line: {exc}" )
+    return metrics
+
+
 def run_script(script_name):
     """Run a WalkingPad script and return the result"""
     start_time = datetime.now()
@@ -37,23 +50,40 @@ def run_script(script_name):
 
         elapsed = (datetime.now() - start_time).total_seconds()
 
+        stdout_lines = result.stdout.strip().split('\n') if result.stdout else []
+        metrics = extract_metrics(stdout_lines)
+
+        if metrics:
+            for metric in metrics:
+                log_with_timestamp(f"📈 Metric {metric.get('event')}: {metric}")
+
         if result.returncode == 0:
             log_with_timestamp(f"✅ {script_name} completed successfully in {elapsed:.1f}s")
-            # Try to parse any JSON output from the script
-            lines = result.stdout.strip().split('\n')
             return {
                 "success": True,
                 "output": result.stdout,
                 "elapsed": elapsed,
-                "logs": lines
+                "logs": stdout_lines,
+                "metrics": metrics
             }
         else:
-            log_with_timestamp(f"❌ {script_name} failed in {elapsed:.1f}s: {result.stderr}")
+            # If stderr is empty, fall back to the last non-empty stdout line
+            err_msg = result.stderr.strip()
+            if not err_msg:
+                last_line = ""
+                for line in result.stdout.strip().split('\n'):
+                    if line.strip():
+                        last_line = line
+                err_msg = last_line
+
+            log_with_timestamp(f"❌ {script_name} failed in {elapsed:.1f}s: {err_msg}")
             return {
                 "success": False,
-                "error": result.stderr,
+                "error": err_msg,
                 "output": result.stdout,
-                "elapsed": elapsed
+                "elapsed": elapsed,
+                "logs": stdout_lines,
+                "metrics": metrics
             }
 
     except subprocess.TimeoutExpired:
@@ -78,16 +108,17 @@ def start_walk():
     log_with_timestamp("📥 Received start walk request")
     result = run_script("start_walk.py")
 
+    response_payload = {
+        "elapsed": result.get("elapsed", 0),
+        "metrics": result.get("metrics", []),
+    }
+
     if result["success"]:
-        return jsonify({
-            "message": "Walk started successfully",
-            "elapsed": result["elapsed"]
-        }), 200
+        response_payload["message"] = "Walk started successfully"
+        return jsonify(response_payload), 200
     else:
-        return jsonify({
-            "error": result["error"],
-            "elapsed": result.get("elapsed", 0)
-        }), 500
+        response_payload["error"] = result.get("error", "")
+        return jsonify(response_payload), 500
 
 @app.route("/save_and_stop", methods=['POST'])
 def save_and_stop():
@@ -95,16 +126,19 @@ def save_and_stop():
     log_with_timestamp("📥 Received save and stop request")
     result = run_script("stop_walk.py")
 
+    response_payload = {
+        "elapsed": result.get("elapsed", 0),
+        "metrics": result.get("metrics", []),
+        "output": result.get("output", "")
+    }
+
     if result["success"]:
-        return jsonify({
-            "message": "Walk stopped and saved successfully",
-            "elapsed": result["elapsed"]
-        }), 200
+        response_payload["message"] = "Walk stopped and saved successfully"
+        return jsonify(response_payload), 200
     else:
-        return jsonify({
-            "error": result["error"],
-            "elapsed": result.get("elapsed", 0)
-        }), 500
+        # Return output logs too to help diagnose failures under launchd
+        response_payload["error"] = result.get("error", "")
+        return jsonify(response_payload), 500
 
 @app.route("/status", methods=['GET'])
 def status():

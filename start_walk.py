@@ -8,6 +8,7 @@ import asyncio
 import time
 import yaml
 import os
+import json
 from datetime import datetime
 from ph4_walkingpad.pad import WalkingPad, Controller
 from ph4_walkingpad.utils import setup_logging
@@ -19,6 +20,17 @@ def log_with_timestamp(message):
     """Print message with timestamp"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     print(f"[{timestamp}] {message}")
+
+
+def log_metric(event_type, **data):
+    """Emit structured metrics for downstream analysis"""
+    entry = {
+        "event": event_type,
+        "ts": datetime.utcnow().isoformat() + "Z",
+    }
+    entry.update(data)
+    print(f"[METRIC] {json.dumps(entry, sort_keys=True)}")
+
 
 def reset_bleak_cache():
     """Force clear Bleak's internal BLE adapter state"""
@@ -69,40 +81,100 @@ async def discover_walkingpad(address, timeout=15):
 
     raise Exception(f"WalkingPad {address} not found in {len(devices)} discovered devices")
 
+async def ensure_advertising(address, timeout=3.0):
+    """Quickly confirm the WalkingPad is advertising"""
+    try:
+        device = await BleakScanner.find_device_by_address(address, timeout=timeout)
+        return device is not None
+    except Exception as exc:
+        log_with_timestamp(f"⚠️  Advertising check failed: {exc}")
+        return False
+
+
 async def start_walking(address):
     """Complete start walking sequence with BLE reset fallback"""
     start_time = time.time()
     max_attempts = 2  # Try once, then reset and try again
+    first_timeout = 4.0
+    retry_timeout = 10.0
+    command_pause = 0.05
+
+    metrics = {
+        "address": address,
+        "attempts": [],
+        "advertising": None,
+    }
+
+    advertising_present = await ensure_advertising(address, timeout=2.0)
+    metrics["advertising"] = advertising_present
+    log_metric("preflight", advertising=advertising_present)
 
     for attempt in range(max_attempts):
         try:
+            attempt_no = attempt + 1
+            attempt_record = {
+                "attempt": attempt_no,
+                "start_ts": time.time(),
+                "timeout": first_timeout if attempt == 0 else retry_timeout,
+            }
             if attempt > 0:
-                log_with_timestamp(f"🔄 Attempt {attempt + 1} after Bleak reset...")
+                log_with_timestamp(f"🔄 Attempt {attempt_no} after Bleak reset...")
 
             # Step 1: Connect directly to known address
             connect_start = time.time()
             log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
             controller = Controller()
             controller.log_messages_info = False
-            await asyncio.wait_for(controller.run(address), timeout=8.0)  # 8s timeout
+            timeout_seconds = first_timeout if attempt == 0 else retry_timeout
+            await asyncio.wait_for(controller.run(address), timeout=timeout_seconds)
             connect_elapsed = time.time() - connect_start
             log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
+            attempt_record["connect_time"] = round(connect_elapsed, 2)
+            attempt_record["status"] = "connected"
+            metrics["attempts"].append(attempt_record)
+            log_metric("connection", attempt=attempt_no, elapsed=connect_elapsed, timeout=timeout_seconds, status="connected")
 
             # Connection succeeded, break out of retry loop
             break
 
         except (asyncio.TimeoutError, Exception) as e:
+            attempt_record = locals().get("attempt_record", {
+                "attempt": attempt + 1,
+                "start_ts": start_time,
+            })
             if attempt == 0:  # First attempt failed
-                log_with_timestamp(f"⚠️  First connection attempt failed: {e}")
+                error_name = type(e).__name__
+                error_text = repr(e)
+                attempt_record["status"] = "timeout"
+                attempt_record["error_type"] = error_name
+                attempt_record["error_text"] = error_text
+                metrics["attempts"].append(attempt_record)
+                log_with_timestamp(f"⚠️  First connection attempt failed: {error_text}")
+                log_metric("connection", attempt=attempt_no, status="timeout", error=error_name)
                 # Reset Bleak cache and try again
                 reset_bleak_cache()
-                await asyncio.sleep(1)  # Brief pause after reset
+                await asyncio.sleep(0.5)  # Brief pause after reset
+                try:
+                    discovery_start = time.time()
+                    await discover_walkingpad(address, timeout=6)
+                    discovery_elapsed = time.time() - discovery_start
+                    log_metric("discovery", found=True, elapsed=discovery_elapsed)
+                except Exception as discover_error:
+                    log_with_timestamp(f"⚠️  Quick discovery attempt failed: {discover_error}")
+                    log_metric("discovery", found=False, error=type(discover_error).__name__)
                 continue
             else:
                 # Second attempt also failed
                 elapsed = time.time() - start_time
-                log_with_timestamp(f"❌ Start walk failed after BLE reset attempt: {e}")
-                return {"success": False, "error": str(e), "time": elapsed}
+                error_name = type(e).__name__
+                error_text = repr(e)
+                attempt_record["status"] = "failed"
+                attempt_record["error_type"] = error_name
+                attempt_record["error_text"] = error_text
+                metrics["attempts"].append(attempt_record)
+                log_with_timestamp(f"❌ Start walk failed after BLE reset attempt: {error_text}")
+                log_metric("connection", attempt=attempt_no, status="failed", error=error_name, elapsed=elapsed)
+                return {"success": False, "error": str(e), "time": elapsed, "metrics": metrics}
 
     try:
 
@@ -113,14 +185,14 @@ async def start_walking(address):
         step_start = time.time()
         log_with_timestamp("  → Switching to MANUAL mode")
         await controller.switch_mode(WalkingPad.MODE_MANUAL)
-        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
+        await asyncio.sleep(command_pause)  # Minimal delay for BLE command processing
         step_elapsed = time.time() - step_start
         log_with_timestamp(f"    ⏱️  MANUAL switch: {step_elapsed:.1f}s")
 
         step_start = time.time()
         log_with_timestamp("  → Starting belt")
         await controller.start_belt()
-        await asyncio.sleep(0.1)  # Minimal delay for BLE command processing
+        await asyncio.sleep(command_pause)  # Minimal delay for BLE command processing
         step_elapsed = time.time() - step_start
         log_with_timestamp(f"    ⏱️  Belt start: {step_elapsed:.1f}s")
 
@@ -136,13 +208,17 @@ async def start_walking(address):
 
         elapsed = time.time() - start_time
         log_with_timestamp(f"✅ Walk started successfully in {elapsed:.1f}s")
+        log_metric("start_walk", success=True, total_time=elapsed, attempts=len(metrics["attempts"]))
 
-        return {"success": True, "message": "Walk started", "time": elapsed}
+        metrics["total_time"] = round(elapsed, 2)
+        return {"success": True, "message": "Walk started", "time": elapsed, "metrics": metrics}
 
     except Exception as e:
         elapsed = time.time() - start_time
         log_with_timestamp(f"❌ Start walk failed after {elapsed:.1f}s: {e}")
-        return {"success": False, "error": str(e), "time": elapsed}
+        log_metric("start_walk", success=False, total_time=elapsed, error=type(e).__name__)
+        metrics["total_time"] = round(elapsed, 2)
+        return {"success": False, "error": str(e), "time": elapsed, "metrics": metrics}
 
 async def main():
     """Main entry point"""

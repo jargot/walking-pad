@@ -346,3 +346,216 @@ Press CTRL+C to quit
 127.0.0.1 - - [16/Sep/2025 14:29:59] "POST /startwalk HTTP/1.1" 200 -
 127.0.0.1 - - [16/Sep/2025 14:30:20] "POST /save_and_stop HTTP/1.1" 200 -
 127.0.0.1 - - [16/Sep/2025 15:21:39] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 15:46:07] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 16:41:27] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 17:07:15] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 17:52:57] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 17:53:08] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 19:18:28] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 19:59:43] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 13:34:34] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 13:52:21] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [20/Sep/2025 13:52:24] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [20/Sep/2025 15:48:24] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 15:48:40] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 15:48:43] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 16:08:02] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [22/Sep/2025 11:56:14] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [22/Sep/2025 12:01:09] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [22/Sep/2025 12:01:28] "POST /save_and_stop HTTP/1.1" 500 -
+Resolved 74 packages in 0.41ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [22/Sep/2025 12:07:04] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [22/Sep/2025 12:38:58] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [22/Sep/2025 13:02:14] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [22/Sep/2025 13:14:18] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2025 11:19:43] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2025 11:58:03] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [23/Sep/2025 11:58:32] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [23/Sep/2025 12:01:21] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [26/Sep/2025 11:40:49] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [26/Sep/2025 12:30:56] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2025 12:03:57] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [29/Sep/2025 12:04:14] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2025 12:08:24] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2025 17:14:09] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2025 17:29:27] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 10:49:24] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [05/Oct/2025 10:49:52] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:05:51] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:06:20] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:21:09] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:27:42] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [05/Oct/2025 11:28:42] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [05/Oct/2025 11:29:12] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:29:12] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:34:32] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [05/Oct/2025 11:35:44] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [05/Oct/2025 11:44:12] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:44:22] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 0.33ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+Resolved 74 packages in 0.29ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.153:5678
+Press CTRL+C to quit
+127.0.0.1 - - [05/Oct/2025 11:45:49] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [05/Oct/2025 11:45:59] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [09/Oct/2025 11:23:27] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [09/Oct/2025 11:56:36] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [09/Oct/2025 12:08:51] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [09/Oct/2025 12:13:08] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [09/Oct/2025 12:13:26] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [10/Oct/2025 11:22:21] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Oct/2025 11:24:23] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [10/Oct/2025 11:32:50] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [10/Oct/2025 11:39:36] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 9ms
+Audited 37 packages in 0.23ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [11/Oct/2025 17:35:09] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2025 18:03:50] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2025 17:45:33] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2025 18:00:17] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2025 11:48:24] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 11:48:34] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 11:48:38] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 11:48:45] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 11:49:02] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 11:49:05] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2025 12:08:18] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2025 12:09:48] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2025 12:15:50] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 12:16:03] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [15/Oct/2025 12:16:39] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 182ms
+Audited 37 packages in 0.14ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [15/Oct/2025 15:51:48] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2025 16:07:59] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 10:32:31] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 10:47:31] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 12:52:12] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 13:40:59] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 19:00:33] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 19:08:23] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 19:16:55] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [16/Oct/2025 19:28:07] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2025 17:06:32] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2025 17:08:19] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2025 17:10:22] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2025 17:31:17] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 09:39:00] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 09:39:03] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 10:27:25] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 10:51:59] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 16:51:45] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [20/Oct/2025 16:58:16] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [20/Oct/2025 17:00:11] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 10:12:30] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [21/Oct/2025 10:15:39] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 10:17:52] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 10:18:56] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 10:54:18] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 15:03:48] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [21/Oct/2025 15:07:49] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [21/Oct/2025 15:31:43] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2025 10:35:43] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2025 11:48:10] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [25/Oct/2025 12:16:54] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [25/Oct/2025 12:40:25] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [25/Oct/2025 17:47:07] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [25/Oct/2025 18:07:09] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 12:02:34] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 12:03:24] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 12:03:40] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 12:24:35] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 17:17:50] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2025 17:30:39] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 549ms
+Audited 37 packages in 11ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [30/Oct/2025 10:03:47] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [30/Oct/2025 10:30:56] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [30/Oct/2025 16:26:09] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [30/Oct/2025 16:47:17] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [30/Oct/2025 17:29:35] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2025 08:42:25] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2025 09:18:36] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 10:12:27] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [06/Nov/2025 10:12:29] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 11:14:47] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 11:40:39] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 11:44:43] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 16:18:48] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [06/Nov/2025 16:19:25] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2025 17:05:27] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2025 09:22:41] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2025 09:39:20] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2025 11:10:26] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 39ms
+Audited 37 packages in 4ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [17/Nov/2025 18:47:00] "POST /startwalk HTTP/1.1" 500 -
+127.0.0.1 - - [17/Nov/2025 18:48:13] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2025 18:48:13] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2025 18:48:47] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2025 18:57:29] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2025 19:17:49] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2025 19:17:50] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 921ms
+Audited 37 packages in 0.33ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+Resolved 74 packages in 107ms
+Audited 37 packages in 1ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [24/Nov/2025 09:41:56] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [24/Nov/2025 10:11:01] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [28/Nov/2025 10:12:11] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [28/Nov/2025 10:39:21] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [28/Nov/2025 10:39:51] "POST /save_and_stop HTTP/1.1" 200 -
+Resolved 74 packages in 1.32s
+Audited 37 packages in 22ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [07/Dec/2025 11:42:27] "POST /startwalk HTTP/1.1" 200 -
