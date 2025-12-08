@@ -32215,3 +32215,79 @@ Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=0, mode=
 [2025-11-28 20:21:50.080] ✅ All scripts found
  * Serving Flask app 'simple_server'
  * Debug mode: off
+[2025-12-07 11:42:24.305] 📥 Received start walk request
+[2025-12-07 11:42:24.314] 🏃 Running start_walk.py...
+[2025-12-07 11:42:27.017] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T10:42:25.137002Z'}
+[2025-12-07 11:42:27.017] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.6780071258544922, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T10:42:26.817085Z'}
+[2025-12-07 11:42:27.017] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.082225799560547, 'ts': '2025-12-07T10:42:26.980567Z'}
+[2025-12-07 11:42:27.017] ✅ start_walk.py completed successfully in 2.7s
+[2025-12-07 12:17:44.182] 📥 Received start walk request
+[2025-12-07 12:17:44.183] 🏃 Running start_walk.py...
+[2025-12-07 12:17:45.660] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:17:44.499269Z'}
+[2025-12-07 12:17:45.660] 📈 Metric connection: {'attempt': 1, 'elapsed': 0.9261739253997803, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:17:45.425935Z'}
+[2025-12-07 12:17:45.660] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.2670810222625732, 'ts': '2025-12-07T11:17:45.600274Z'}
+[2025-12-07 12:17:45.660] ✅ start_walk.py completed successfully in 1.5s
+[2025-12-07 12:19:27.283] 📥 Received start walk request
+[2025-12-07 12:19:27.286] 🏃 Running start_walk.py...
+[2025-12-07 12:19:28.974] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:19:27.846766Z'}
+[2025-12-07 12:19:28.974] 📈 Metric connection: {'attempt': 1, 'elapsed': 0.8997499942779541, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:19:28.747447Z'}
+[2025-12-07 12:19:28.974] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.232541799545288, 'ts': '2025-12-07T11:19:28.910170Z'}
+[2025-12-07 12:19:28.974] ✅ start_walk.py completed successfully in 1.7s
+[2025-12-07 12:19:51.574] 📥 Received start walk request
+[2025-12-07 12:19:51.575] 🏃 Running start_walk.py...
+[2025-12-07 12:19:53.006] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:19:51.850883Z'}
+[2025-12-07 12:19:53.006] 📈 Metric connection: {'attempt': 1, 'elapsed': 0.955172061920166, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:19:52.806752Z'}
+[2025-12-07 12:19:53.006] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.2435998916625977, 'ts': '2025-12-07T11:19:52.969582Z'}
+[2025-12-07 12:19:53.006] ✅ start_walk.py completed successfully in 1.4s
+[2025-12-07 12:22:34.346] 📥 Received start walk request
+[2025-12-07 12:22:34.347] 🏃 Running start_walk.py...
+[2025-12-07 12:22:35.819] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:22:34.631288Z'}
+[2025-12-07 12:22:35.819] 📈 Metric connection: {'attempt': 1, 'elapsed': 0.961738109588623, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:22:35.593698Z'}
+[2025-12-07 12:22:35.819] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.2698700428009033, 'ts': '2025-12-07T11:22:35.773889Z'}
+[2025-12-07 12:22:35.819] ✅ start_walk.py completed successfully in 1.5s
+[2025-12-07 12:23:06.175] 📥 Received save and stop request
+[2025-12-07 12:23:06.176] 🏃 Running stop_walk.py...
+[2025-12-07 12:23:08.264] ✅ stop_walk.py completed successfully in 2.1s
+[2025-12-07 12:23:12.734] 📥 Received start walk request
+[2025-12-07 12:23:12.734] 🏃 Running start_walk.py...
+[2025-12-07 12:23:14.575] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:23:13.122660Z'}
+[2025-12-07 12:23:14.575] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.223902940750122, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:23:14.347352Z'}
+[2025-12-07 12:23:14.575] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.508404016494751, 'ts': '2025-12-07T11:23:14.510008Z'}
+[2025-12-07 12:23:14.575] ✅ start_walk.py completed successfully in 1.8s
+[2025-12-07 12:24:05.348] 📥 Received start walk request
+[2025-12-07 12:24:05.349] 🏃 Running start_walk.py...
+[2025-12-07 12:24:06.998] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:24:05.711708Z'}
+[2025-12-07 12:24:07.000] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.0744690895080566, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:24:06.791788Z'}
+[2025-12-07 12:24:07.000] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.4808897972106934, 'ts': '2025-12-07T11:24:06.951400Z'}
+[2025-12-07 12:24:07.000] ✅ start_walk.py completed successfully in 1.6s
+[2025-12-07 12:24:57.960] 📥 Received start walk request
+[2025-12-07 12:24:57.960] 🏃 Running start_walk.py...
+[2025-12-07 12:24:59.568] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-07T11:24:58.303011Z'}
+[2025-12-07 12:24:59.568] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.0452170372009277, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-07T11:24:59.348838Z'}
+[2025-12-07 12:24:59.568] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.4217140674591064, 'ts': '2025-12-07T11:24:59.539709Z'}
+[2025-12-07 12:24:59.568] ✅ start_walk.py completed successfully in 1.6s
+[2025-12-08 10:57:11.940] 📥 Received start walk request
+[2025-12-08 10:57:11.952] 🏃 Running start_walk.py...
+[2025-12-08 10:57:15.644] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-08T09:57:13.121752Z'}
+[2025-12-08 10:57:15.645] 📈 Metric connection: {'attempt': 1, 'elapsed': 2.2450761795043945, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-08T09:57:15.371096Z'}
+[2025-12-08 10:57:15.645] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 3.0500450134277344, 'ts': '2025-12-08T09:57:15.565004Z'}
+[2025-12-08 10:57:15.645] ✅ start_walk.py completed successfully in 3.7s
+[2025-12-08 10:57:22.143] 📥 Received save and stop request
+[2025-12-08 10:57:22.143] 🏃 Running stop_walk.py...
+[2025-12-08 10:57:26.800] ✅ stop_walk.py completed successfully in 4.7s
+[2025-12-08 10:59:01.867] 📥 Received start walk request
+[2025-12-08 10:59:01.867] 🏃 Running start_walk.py...
+[2025-12-08 10:59:03.609] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-08T09:59:02.265987Z'}
+[2025-12-08 10:59:03.609] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.1094059944152832, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-08T09:59:03.375666Z'}
+[2025-12-08 10:59:03.609] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 1.4922778606414795, 'ts': '2025-12-08T09:59:03.534565Z'}
+[2025-12-08 10:59:03.611] ✅ start_walk.py completed successfully in 1.7s
+[2025-12-08 11:01:30.169] 📥 Received save and stop request
+[2025-12-08 11:01:30.175] 🏃 Running stop_walk.py...
+[2025-12-08 11:01:34.469] ✅ stop_walk.py completed successfully in 4.3s
+[2025-12-08 11:01:39.920] 📥 Received start walk request
+[2025-12-08 11:01:39.920] 🏃 Running start_walk.py...
+[2025-12-08 11:01:42.326] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2025-12-08T10:01:40.578333Z'}
+[2025-12-08 11:01:42.326] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.5220789909362793, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2025-12-08T10:01:42.103287Z'}
+[2025-12-08 11:01:42.326] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.124295949935913, 'ts': '2025-12-08T10:01:42.269856Z'}
+[2025-12-08 11:01:42.326] ✅ start_walk.py completed successfully in 2.4s
+[2025-12-08 11:06:46.138] 📥 Received save and stop request

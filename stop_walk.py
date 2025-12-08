@@ -9,7 +9,8 @@ import time
 import yaml
 import os
 import psycopg2
-from datetime import datetime
+import requests
+from datetime import datetime, timedelta
 from ph4_walkingpad.pad import WalkingPad, Controller
 from ph4_walkingpad.utils import setup_logging
 from bleak import BleakScanner
@@ -96,6 +97,51 @@ def store_in_db(steps, distance_in_km, duration_in_seconds):
         if conn:
             conn.close()
 
+def log_to_fitbit(steps, duration_minutes, start_time_str):
+    """Log walking activity to Fitbit"""
+    access_token = os.getenv('FITBIT_ACCESS_TOKEN')
+
+    if not access_token:
+        log_with_timestamp("⚠️  No Fitbit token found, skipping Fitbit logging")
+        return False
+
+    try:
+        data = {
+            'activityId': 90013,  # Walking activity ID
+            'startTime': start_time_str,
+            'durationMillis': duration_minutes * 60 * 1000,
+            'date': datetime.now().strftime('%Y-%m-%d'),
+            'distance': steps,
+            'distanceUnit': 'steps'
+        }
+
+        log_with_timestamp(f"🏃 Sending to Fitbit: {steps} steps, {start_time_str}->{duration_minutes}min")
+        log_with_timestamp(f"📤 Payload: {data}")
+
+        url = "https://api.fitbit.com/1/user/-/activities.json"
+        headers = {
+            'Authorization': f'Bearer {access_token}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+
+        response = requests.post(url, headers=headers, data=data)
+
+        if response.status_code == 401:
+            log_with_timestamp("⚠️  Fitbit token expired, run setup_fitbit_oauth.py")
+            return False
+
+        response.raise_for_status()
+        result = response.json()
+
+        activity_log = result.get('activityLog', {})
+        log_with_timestamp(f"📥 Response: steps={activity_log.get('steps', 0)}, calories={activity_log.get('calories', 0)}, logId={activity_log.get('logId', 'Unknown')}")
+        log_with_timestamp(f"✅ Logged to Fitbit successfully")
+        return True
+
+    except Exception as e:
+        log_with_timestamp(f"❌ Fitbit logging failed: {e}")
+        return False
+
 async def discover_walkingpad(address, timeout=15):
     """Discover the WalkingPad device"""
     log_with_timestamp(f"🔍 Discovering WalkingPad {address}...")
@@ -113,6 +159,7 @@ async def stop_walking(address):
     """Complete stop walking sequence with database save, with retries/timeouts."""
     start_time = time.time()
     workout_data = {"steps": 0, "distance": 0.0, "time": 0}
+    workout_start_time = None  # Track actual workout start time
 
     # Step 1: Connect with a retry after resetting Bleak cache (mirrors start_walk.py)
     controller = Controller()
@@ -141,18 +188,41 @@ async def stop_walking(address):
                 return {"success": False, "error": str(e), "time": elapsed, "workout": workout_data}
 
     try:
-        # Step 2: Get current stats before stopping (with timeout)
+        # Step 2: Get current stats before stopping (with retries)
         log_with_timestamp("📊 Getting workout statistics...")
-        await asyncio.wait_for(controller.ask_stats(), timeout=3.0)
-        await asyncio.sleep(0.2)
+        stats = None
 
-        if hasattr(controller, 'last_status') and controller.last_status:
-            stats = controller.last_status
-            workout_data["steps"] = stats.steps
-            workout_data["distance"] = stats.dist / 100  # Convert to km
-            workout_data["time"] = stats.time
+        # Try multiple times to get valid workout stats
+        for attempt in range(3):
+            try:
+                await asyncio.wait_for(controller.ask_stats(), timeout=3.0)
+                await asyncio.sleep(0.5)  # Give more time for response
 
-            log_with_timestamp(f"📈 Workout stats: {workout_data['steps']} steps, {workout_data['distance']:.2f}km, {workout_data['time']}s")
+                if hasattr(controller, 'last_status') and controller.last_status:
+                    stats = controller.last_status
+                    # Only accept if we have actual workout data (steps > 0 or time > 0)
+                    if stats.steps > 0 or stats.time > 0:
+                        workout_data["steps"] = stats.steps
+                        workout_data["distance"] = stats.dist / 100  # Convert to km
+                        workout_data["time"] = stats.time
+                        log_with_timestamp(f"📈 Workout stats: {workout_data['steps']} steps, {workout_data['distance']:.2f}km, {workout_data['time']}s")
+                        break
+                    else:
+                        log_with_timestamp(f"⚠️  Attempt {attempt + 1}: Got zero stats (steps={stats.steps}, time={stats.time}), retrying...")
+                else:
+                    log_with_timestamp(f"⚠️  Attempt {attempt + 1}: No status available, retrying...")
+
+            except Exception as e:
+                log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {e}")
+
+            if attempt < 2:  # Don't sleep after last attempt
+                await asyncio.sleep(1)
+
+        # Final check - if we still don't have valid stats, warn but continue
+        if workout_data["steps"] == 0 and workout_data["time"] == 0:
+            log_with_timestamp("❌ Could not retrieve valid workout statistics after 3 attempts")
+        else:
+            log_with_timestamp(f"✅ Successfully retrieved workout stats")
 
         # Step 3: Stop sequence
         log_with_timestamp("🛑 Stopping walk sequence...")
@@ -172,6 +242,22 @@ async def stop_walking(address):
             workout_data["time"]
         )
 
+        # Step 4b: Log to Fitbit
+        fitbit_success = False
+        if workout_data["steps"] > 0 and workout_data["time"] > 0:
+            # Calculate workout start time (workout end time minus workout duration)
+            workout_end = datetime.now()
+            workout_duration_seconds = workout_data["time"]
+            workout_start_time = workout_end - timedelta(seconds=workout_duration_seconds)
+            start_time_str = workout_start_time.strftime("%H:%M")
+            duration_minutes = max(1, round(workout_duration_seconds / 60))  # At least 1 minute
+
+            fitbit_success = log_to_fitbit(
+                workout_data["steps"],
+                duration_minutes,
+                start_time_str
+            )
+
         # Step 5: Disconnect cleanly (best effort)
         log_with_timestamp("📱 Disconnecting...")
         try:
@@ -187,7 +273,8 @@ async def stop_walking(address):
             "message": "Walk stopped",
             "time": elapsed,
             "workout": workout_data,
-            "saved_to_db": db_success
+            "saved_to_db": db_success,
+            "logged_to_fitbit": fitbit_success
         }
 
     except Exception as e:
