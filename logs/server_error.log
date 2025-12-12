@@ -611,3 +611,46 @@ Press CTRL+C to quit
 127.0.0.1 - - [12/Dec/2025 09:36:44] "POST /startwalk HTTP/1.1" 500 -
 127.0.0.1 - - [12/Dec/2025 09:37:36] "GET /status HTTP/1.1" 200 -
 127.0.0.1 - - [12/Dec/2025 09:37:51] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 17ms
+Audited 37 packages in 0.71ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+Resolved 74 packages in 0.59ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [12/Dec/2025 09:45:58] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [12/Dec/2025 09:46:34] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 0.99ms
+Audited 37 packages in 0.03ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [12/Dec/2025 09:51:53] "POST /save_and_stop HTTP/1.1" 500 -
+127.0.0.1 - - [12/Dec/2025 09:51:58] "POST /startwalk HTTP/1.1" 500 -
+Resolved 74 packages in 0.93ms
+Audited 37 packages in 0.03ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [12/Dec/2025 09:53:28] "POST /save_and_stop HTTP/1.1" 500 -
+Resolved 74 packages in 0.78ms
+Audited 37 packages in 0.04ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.19:5678
+Press CTRL+C to quit
+127.0.0.1 - - [12/Dec/2025 09:55:01] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [12/Dec/2025 09:55:33] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [12/Dec/2025 09:56:03] "POST /save_and_stop HTTP/1.1" 200 -

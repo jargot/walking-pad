@@ -35,7 +35,7 @@ def extract_metrics(lines):
 
 
 def run_script(script_name):
-    """Run a WalkingPad script and return the result"""
+    """Run a WalkingPad script and return the result (single attempt)"""
     start_time = datetime.now()
     log_with_timestamp(f"🏃 Running {script_name}...")
 
@@ -102,15 +102,71 @@ def run_script(script_name):
             "elapsed": elapsed
         }
 
+def run_script_with_retries(script_name, max_retries=3):
+    """Run a WalkingPad script with server-level retries"""
+    overall_start_time = datetime.now()
+    log_with_timestamp(f"🔄 Starting {script_name} with up to {max_retries} retries...")
+
+    all_metrics = []
+    last_result = None
+
+    for attempt in range(max_retries):
+        attempt_num = attempt + 1
+        log_with_timestamp(f"🎯 Attempt {attempt_num}/{max_retries} for {script_name}")
+
+        result = run_script(script_name)
+        last_result = result
+
+        # Collect metrics from all attempts
+        if result.get("metrics"):
+            all_metrics.extend(result["metrics"])
+
+        if result["success"]:
+            overall_elapsed = (datetime.now() - overall_start_time).total_seconds()
+            log_with_timestamp(f"🎉 {script_name} succeeded on attempt {attempt_num} (total: {overall_elapsed:.1f}s)")
+
+            # Return success with combined metrics
+            return {
+                "success": True,
+                "output": result["output"],
+                "elapsed": overall_elapsed,
+                "logs": result.get("logs", []),
+                "metrics": all_metrics,
+                "attempts": attempt_num
+            }
+        else:
+            # Log the failure but don't give up yet (unless it's the last attempt)
+            if attempt_num < max_retries:
+                retry_delay = 2 * attempt_num  # 2s, 4s delays
+                log_with_timestamp(f"⚠️  Attempt {attempt_num} failed: {result.get('error', 'Unknown error')}")
+                log_with_timestamp(f"⏳ Waiting {retry_delay}s before retry...")
+                import time
+                time.sleep(retry_delay)
+            else:
+                log_with_timestamp(f"💀 All {max_retries} attempts failed for {script_name}")
+
+    # All retries failed - return the last result with combined metrics
+    overall_elapsed = (datetime.now() - overall_start_time).total_seconds()
+    return {
+        "success": False,
+        "error": last_result.get("error", "All retry attempts failed"),
+        "output": last_result.get("output", ""),
+        "elapsed": overall_elapsed,
+        "logs": last_result.get("logs", []),
+        "metrics": all_metrics,
+        "attempts": max_retries
+    }
+
 @app.route("/startwalk", methods=['POST'])
 def start_walk():
-    """Start walking by calling the stateless script"""
+    """Start walking by calling the stateless script with retries"""
     log_with_timestamp("📥 Received start walk request")
-    result = run_script("start_walk.py")
+    result = run_script_with_retries("start_walk.py", max_retries=3)
 
     response_payload = {
         "elapsed": result.get("elapsed", 0),
         "metrics": result.get("metrics", []),
+        "attempts": result.get("attempts", 1)
     }
 
     if result["success"]:
@@ -122,14 +178,15 @@ def start_walk():
 
 @app.route("/save_and_stop", methods=['POST'])
 def save_and_stop():
-    """Stop walking and save to database by calling the stateless script"""
+    """Stop walking and save to database by calling the stateless script with retries"""
     log_with_timestamp("📥 Received save and stop request")
-    result = run_script("stop_walk.py")
+    result = run_script_with_retries("stop_walk.py", max_retries=3)
 
     response_payload = {
         "elapsed": result.get("elapsed", 0),
         "metrics": result.get("metrics", []),
-        "output": result.get("output", "")
+        "output": result.get("output", ""),
+        "attempts": result.get("attempts", 1)
     }
 
     if result["success"]:

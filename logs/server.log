@@ -32451,4 +32451,28 @@ Status: WalkingPadCurStatus(dist=0.0, time=0, steps=0, speed=0.0, state=0, mode=
 [2025-12-12 09:35:02.689] ❌ start_walk.py failed in 24.9s: [METRIC] {"attempt": 2, "elapsed": 22.701120138168335, "error": "TimeoutError", "event": "connection", "status": "failed", "ts": "2025-12-12T08:35:02.624557Z"}
 [2025-12-12 09:35:16.062] 📥 Received start walk request
 [2025-12-12 09:35:16.062] 🏃 Running start_walk.py...
-[2025-12-12 09:35:19.161] 📈 Metric preflight: {'advertising': False, 'event': 'preflight', 'ts': '2025-12-12T08:34:58.533519Z'}
+[2025-12-12 09:35:19.161] 📈 Metric preflight: {'advertising': False, 'event': 'preflight', 'ts': '2025-12-12T08:34:58.533519Z'}[2025-12-12 09:43:33.437] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-12-12 09:43:33.438] 📋 Approach: Always discover → connect → command → disconnect
+[2025-12-12 09:43:33.438] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2025-12-12 09:44:30.195] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-12-12 09:44:30.195] 📋 Approach: Always discover → connect → command → disconnect
+[2025-12-12 09:44:30.195] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2025-12-12 09:50:41.387] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-12-12 09:50:41.387] 📋 Approach: Always discover → connect → command → disconnect
+[2025-12-12 09:50:41.387] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2025-12-12 09:52:11.380] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-12-12 09:52:11.380] 📋 Approach: Always discover → connect → command → disconnect
+[2025-12-12 09:52:11.380] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2025-12-12 09:54:49.480] 🚀 Starting Simple Stateless WalkingPad Server
+[2025-12-12 09:54:49.480] 📋 Approach: Always discover → connect → command → disconnect
+[2025-12-12 09:54:49.480] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off

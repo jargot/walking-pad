@@ -16,6 +16,32 @@ from ph4_walkingpad.utils import setup_logging
 from bleak import BleakScanner
 from dotenv import load_dotenv
 
+# Performance Profiles - Choose your poison!
+SAFE_CONFIG = {
+    "connection_timeout": 8.0,
+    "stats_retries": 3,
+    "stats_timeout": 3.0,
+    "stats_sleep": 0.5,
+    "retry_sleep": 1.0,
+    "command_timeout": 3.0,
+    "disconnect_timeout": 3.0,
+    "name": "SAFE"
+}
+
+LUDICROUS_CONFIG = {
+    "connection_timeout": 5.0,
+    "stats_retries": 2,
+    "stats_timeout": 2.0,
+    "stats_sleep": 0.2,
+    "retry_sleep": 0.5,
+    "command_timeout": 2.0,
+    "disconnect_timeout": 2.0,
+    "name": "LUDICROUS"
+}
+
+# Choose your config here - set to LUDICROUS_CONFIG for speed, SAFE_CONFIG for reliability
+PERFORMANCE_CONFIG = SAFE_CONFIG
+
 def log_with_timestamp(message):
     """Print message with timestamp"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -155,37 +181,66 @@ async def discover_walkingpad(address, timeout=15):
 
     raise Exception(f"WalkingPad {address} not found in {len(devices)} discovered devices")
 
+async def ensure_advertising(address, timeout=3.0):
+    """Quickly confirm the WalkingPad is advertising"""
+    try:
+        from bleak import BleakScanner
+        device = await BleakScanner.find_device_by_address(address, timeout=timeout)
+        return device is not None
+    except Exception as exc:
+        log_with_timestamp(f"⚠️  Advertising check failed: {exc}")
+        return False
+
 async def stop_walking(address):
     """Complete stop walking sequence with database save, with retries/timeouts."""
     start_time = time.time()
     workout_data = {"steps": 0, "distance": 0.0, "time": 0}
     workout_start_time = None  # Track actual workout start time
 
-    # Step 1: Connect with a retry after resetting Bleak cache (mirrors start_walk.py)
+    log_with_timestamp(f"🚀 Using {PERFORMANCE_CONFIG['name']} performance profile")
+
+    # Step 0: Check if device is advertising (quick pre-flight check)
+    advertising_present = await ensure_advertising(address, timeout=2.0)
+    log_with_timestamp(f"📡 Device advertising: {advertising_present}")
+
+    # Step 1: Enhanced connection with better retry logic
     controller = Controller()
     controller.log_messages_info = False
 
-    max_attempts = 2
+    max_attempts = 3  # Increase attempts since pad is running
     for attempt in range(max_attempts):
         try:
             if attempt > 0:
-                log_with_timestamp(f"🔄 Attempt {attempt + 1} after Bleak reset...")
-            log_with_timestamp(f"📱 Connecting directly to WalkingPad {address}...")
+                log_with_timestamp(f"🔄 Attempt {attempt + 1}/{max_attempts} after reset...")
+
+            # Try discovery first for running pads (they might need re-discovery)
+            if attempt > 0 or not advertising_present:
+                try:
+                    log_with_timestamp(f"🔍 Quick discovery for running pad...")
+                    await discover_walkingpad(address, timeout=5)
+                    log_with_timestamp(f"✅ Discovery successful")
+                except Exception as discovery_error:
+                    log_with_timestamp(f"⚠️  Discovery failed: {discovery_error}")
+
+            log_with_timestamp(f"📱 Connecting to WalkingPad {address}...")
             connect_start = time.time()
-            await asyncio.wait_for(controller.run(address), timeout=8.0)
+            await asyncio.wait_for(controller.run(address), timeout=PERFORMANCE_CONFIG["connection_timeout"])
             connect_elapsed = time.time() - connect_start
             log_with_timestamp(f"⏱️  Connection completed in {connect_elapsed:.1f}s")
             break
         except Exception as e:
-            if attempt == 0:
-                log_with_timestamp(f"⚠️  First connection attempt failed: {e}")
+            error_msg = str(e)
+            log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {error_msg}")
+
+            if attempt < max_attempts - 1:  # Not the last attempt
+                # More aggressive reset for running pads
                 reset_bleak_cache()
-                await asyncio.sleep(1)
+                await asyncio.sleep(PERFORMANCE_CONFIG["retry_sleep"] * (attempt + 1))  # Progressive delay
                 continue
             else:
                 elapsed = time.time() - start_time
-                log_with_timestamp(f"❌ Stop walk failed after BLE reset attempt: {e}")
-                return {"success": False, "error": str(e), "time": elapsed, "workout": workout_data}
+                log_with_timestamp(f"❌ All {max_attempts} connection attempts failed")
+                return {"success": False, "error": f"Connection failed after {max_attempts} attempts: {error_msg}", "time": elapsed, "workout": workout_data}
 
     try:
         # Step 2: Get current stats before stopping (with retries)
@@ -193,10 +248,10 @@ async def stop_walking(address):
         stats = None
 
         # Try multiple times to get valid workout stats
-        for attempt in range(3):
+        for attempt in range(PERFORMANCE_CONFIG["stats_retries"]):
             try:
-                await asyncio.wait_for(controller.ask_stats(), timeout=3.0)
-                await asyncio.sleep(0.5)  # Give more time for response
+                await asyncio.wait_for(controller.ask_stats(), timeout=PERFORMANCE_CONFIG["stats_timeout"])
+                await asyncio.sleep(PERFORMANCE_CONFIG["stats_sleep"])  # Give time for response
 
                 if hasattr(controller, 'last_status') and controller.last_status:
                     stats = controller.last_status
@@ -215,12 +270,12 @@ async def stop_walking(address):
             except Exception as e:
                 log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {e}")
 
-            if attempt < 2:  # Don't sleep after last attempt
-                await asyncio.sleep(1)
+            if attempt < PERFORMANCE_CONFIG["stats_retries"] - 1:  # Don't sleep after last attempt
+                await asyncio.sleep(PERFORMANCE_CONFIG["retry_sleep"])
 
         # Final check - if we still don't have valid stats, warn but continue
         if workout_data["steps"] == 0 and workout_data["time"] == 0:
-            log_with_timestamp("❌ Could not retrieve valid workout statistics after 3 attempts")
+            log_with_timestamp(f"❌ Could not retrieve valid workout statistics after {PERFORMANCE_CONFIG['stats_retries']} attempts")
         else:
             log_with_timestamp(f"✅ Successfully retrieved workout stats")
 
@@ -228,11 +283,11 @@ async def stop_walking(address):
         log_with_timestamp("🛑 Stopping walk sequence...")
 
         log_with_timestamp("  → Switching to STANDBY mode")
-        await asyncio.wait_for(controller.switch_mode(WalkingPad.MODE_STANDBY), timeout=3.0)
+        await asyncio.wait_for(controller.switch_mode(WalkingPad.MODE_STANDBY), timeout=PERFORMANCE_CONFIG["command_timeout"])
         await asyncio.sleep(0.1)
 
         log_with_timestamp("  → Getting final history")
-        await asyncio.wait_for(controller.ask_hist(1), timeout=3.0)
+        await asyncio.wait_for(controller.ask_hist(1), timeout=PERFORMANCE_CONFIG["command_timeout"])
         await asyncio.sleep(0.1)
 
         # Step 4: Save to database
@@ -261,7 +316,7 @@ async def stop_walking(address):
         # Step 5: Disconnect cleanly (best effort)
         log_with_timestamp("📱 Disconnecting...")
         try:
-            await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+            await asyncio.wait_for(controller.disconnect(), timeout=PERFORMANCE_CONFIG["disconnect_timeout"])
         except Exception as e:
             log_with_timestamp(f"⚠️  Disconnect warning: {e}")
 
