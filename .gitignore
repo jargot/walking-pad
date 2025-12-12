@@ -21,3 +21,4 @@ walkingpad-env/*
 
 # Environment variables
 .env
+logs/*
