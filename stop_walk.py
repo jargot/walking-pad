@@ -16,8 +16,8 @@ from ph4_walkingpad.utils import setup_logging
 from bleak import BleakScanner
 from dotenv import load_dotenv
 
-# Performance Profiles - Choose your poison!
-SAFE_CONFIG = {
+# Performance Configuration - Optimized for reliability
+PERFORMANCE_CONFIG = {
     "connection_timeout": 8.0,
     "stats_retries": 3,
     "stats_timeout": 3.0,
@@ -25,22 +25,8 @@ SAFE_CONFIG = {
     "retry_sleep": 1.0,
     "command_timeout": 3.0,
     "disconnect_timeout": 3.0,
-    "name": "SAFE"
+    "name": "OPTIMIZED"
 }
-
-LUDICROUS_CONFIG = {
-    "connection_timeout": 5.0,
-    "stats_retries": 2,
-    "stats_timeout": 2.0,
-    "stats_sleep": 0.2,
-    "retry_sleep": 0.5,
-    "command_timeout": 2.0,
-    "disconnect_timeout": 2.0,
-    "name": "LUDICROUS"
-}
-
-# Choose your config here - set to LUDICROUS_CONFIG for speed, SAFE_CONFIG for reliability
-PERFORMANCE_CONFIG = SAFE_CONFIG
 
 def log_with_timestamp(message):
     """Print message with timestamp"""
@@ -197,7 +183,7 @@ async def stop_walking(address):
     workout_data = {"steps": 0, "distance": 0.0, "time": 0}
     workout_start_time = None  # Track actual workout start time
 
-    log_with_timestamp(f"🚀 Using {PERFORMANCE_CONFIG['name']} performance profile")
+    log_with_timestamp(f"🚀 Using {PERFORMANCE_CONFIG['name']} performance config")
 
     # Step 0: Check if device is advertising (quick pre-flight check)
     advertising_present = await ensure_advertising(address, timeout=2.0)
