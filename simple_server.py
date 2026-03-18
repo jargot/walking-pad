@@ -8,13 +8,22 @@ import asyncio
 import subprocess
 import json
 import os
+import signal
 import sys
+import threading
 from flask import Flask, request, jsonify
 from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
+
+# Prevent concurrent BLE operations (BLE only supports one connection at a time)
+_ble_lock = threading.Lock()
+
+# Debounce: track last successful operation to ignore duplicate requests
+_last_success = {}  # {"startwalk": datetime, "save_and_stop": datetime}
+DEBOUNCE_SECONDS = 5
 
 def log_with_timestamp(message):
     """Print message with timestamp"""
@@ -40,38 +49,59 @@ def run_script(script_name):
     log_with_timestamp(f"🏃 Running {script_name}...")
 
     try:
-        # Run the script using uv
-        result = subprocess.run(
+        # Use Popen so we can send SIGINT on timeout (not SIGKILL).
+        # SIGINT lets asyncio.run() cancel tasks and run finally blocks,
+        # which disconnect BLE cleanly instead of orphaning the connection.
+        proc = subprocess.Popen(
             ["uv", "run", "python", script_name],
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
-            timeout=30  # 30 second timeout
+            start_new_session=True,  # Own process group for clean signal delivery
         )
 
-        elapsed = (datetime.now() - start_time).total_seconds()
+        try:
+            stdout, stderr = proc.communicate(timeout=30)
+        except subprocess.TimeoutExpired:
+            log_with_timestamp(f"⏱️  {script_name} timed out, sending SIGINT for graceful BLE disconnect...")
+            os.killpg(os.getpgid(proc.pid), signal.SIGINT)
+            try:
+                stdout, stderr = proc.communicate(timeout=5)
+                log_with_timestamp(f"⏱️  {script_name} shut down gracefully after SIGINT")
+            except subprocess.TimeoutExpired:
+                log_with_timestamp(f"⏱️  {script_name} didn't exit after SIGINT, sending SIGKILL...")
+                os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+                proc.communicate()
 
-        stdout_lines = result.stdout.strip().split('\n') if result.stdout else []
+            elapsed = (datetime.now() - start_time).total_seconds()
+            return {
+                "success": False,
+                "error": f"Script timed out after {elapsed:.0f} seconds",
+                "elapsed": elapsed
+            }
+
+        elapsed = (datetime.now() - start_time).total_seconds()
+        stdout_lines = stdout.strip().split('\n') if stdout and stdout.strip() else []
         metrics = extract_metrics(stdout_lines)
 
         if metrics:
             for metric in metrics:
                 log_with_timestamp(f"📈 Metric {metric.get('event')}: {metric}")
 
-        if result.returncode == 0:
+        if proc.returncode == 0:
             log_with_timestamp(f"✅ {script_name} completed successfully in {elapsed:.1f}s")
             return {
                 "success": True,
-                "output": result.stdout,
+                "output": stdout,
                 "elapsed": elapsed,
                 "logs": stdout_lines,
                 "metrics": metrics
             }
         else:
-            # If stderr is empty, fall back to the last non-empty stdout line
-            err_msg = result.stderr.strip()
+            err_msg = (stderr or "").strip()
             if not err_msg:
                 last_line = ""
-                for line in result.stdout.strip().split('\n'):
+                for line in stdout_lines:
                     if line.strip():
                         last_line = line
                 err_msg = last_line
@@ -80,19 +110,12 @@ def run_script(script_name):
             return {
                 "success": False,
                 "error": err_msg,
-                "output": result.stdout,
+                "output": stdout,
                 "elapsed": elapsed,
                 "logs": stdout_lines,
                 "metrics": metrics
             }
 
-    except subprocess.TimeoutExpired:
-        log_with_timestamp(f"⏱️  {script_name} timed out after 30s")
-        return {
-            "success": False,
-            "error": "Script timed out after 30 seconds",
-            "elapsed": 30.0
-        }
     except Exception as e:
         elapsed = (datetime.now() - start_time).total_seconds()
         log_with_timestamp(f"💥 {script_name} crashed in {elapsed:.1f}s: {e}")
@@ -160,42 +183,65 @@ def run_script_with_retries(script_name, max_retries=3):
 @app.route("/startwalk", methods=['POST'])
 def start_walk():
     """Start walking by calling the stateless script with retries"""
-    log_with_timestamp("📥 Received start walk request")
-    result = run_script_with_retries("start_walk.py", max_retries=3)
+    last = _last_success.get("startwalk")
+    if last and (datetime.now() - last).total_seconds() < DEBOUNCE_SECONDS:
+        log_with_timestamp("⚠️  Debounced /startwalk — already started recently")
+        return jsonify({"message": "Walk already started", "debounced": True}), 200
+    if not _ble_lock.acquire(blocking=False):
+        log_with_timestamp("⚠️  Rejected /startwalk — another BLE operation in progress")
+        return jsonify({"error": "Another BLE operation is in progress. Please wait."}), 409
+    try:
+        log_with_timestamp("📥 Received start walk request")
+        result = run_script_with_retries("start_walk.py", max_retries=3)
 
-    response_payload = {
-        "elapsed": result.get("elapsed", 0),
-        "metrics": result.get("metrics", []),
-        "attempts": result.get("attempts", 1)
-    }
+        response_payload = {
+            "elapsed": result.get("elapsed", 0),
+            "metrics": result.get("metrics", []),
+            "attempts": result.get("attempts", 1)
+        }
 
-    if result["success"]:
-        response_payload["message"] = "Walk started successfully"
-        return jsonify(response_payload), 200
-    else:
-        response_payload["error"] = result.get("error", "")
-        return jsonify(response_payload), 500
+        if result["success"]:
+            _last_success["startwalk"] = datetime.now()
+            _last_success.pop("save_and_stop", None)  # Clear stop debounce on new start
+            response_payload["message"] = "Walk started successfully"
+            return jsonify(response_payload), 200
+        else:
+            response_payload["error"] = result.get("error", "")
+            return jsonify(response_payload), 500
+    finally:
+        _ble_lock.release()
 
 @app.route("/save_and_stop", methods=['POST'])
 def save_and_stop():
     """Stop walking and save to database by calling the stateless script with retries"""
-    log_with_timestamp("📥 Received save and stop request")
-    result = run_script_with_retries("stop_walk.py", max_retries=3)
+    last = _last_success.get("save_and_stop")
+    if last and (datetime.now() - last).total_seconds() < DEBOUNCE_SECONDS:
+        log_with_timestamp("⚠️  Debounced /save_and_stop — already stopped recently")
+        return jsonify({"message": "Walk already stopped", "debounced": True}), 200
+    if not _ble_lock.acquire(blocking=False):
+        log_with_timestamp("⚠️  Rejected /save_and_stop — another BLE operation in progress")
+        return jsonify({"error": "Another BLE operation is in progress. Please wait."}), 409
+    try:
+        log_with_timestamp("📥 Received save and stop request")
+        result = run_script_with_retries("stop_walk.py", max_retries=3)
 
-    response_payload = {
-        "elapsed": result.get("elapsed", 0),
-        "metrics": result.get("metrics", []),
-        "output": result.get("output", ""),
-        "attempts": result.get("attempts", 1)
-    }
+        response_payload = {
+            "elapsed": result.get("elapsed", 0),
+            "metrics": result.get("metrics", []),
+            "output": result.get("output", ""),
+            "attempts": result.get("attempts", 1)
+        }
 
-    if result["success"]:
-        response_payload["message"] = "Walk stopped and saved successfully"
-        return jsonify(response_payload), 200
-    else:
-        # Return output logs too to help diagnose failures under launchd
-        response_payload["error"] = result.get("error", "")
-        return jsonify(response_payload), 500
+        if result["success"]:
+            _last_success["save_and_stop"] = datetime.now()
+            _last_success.pop("startwalk", None)  # Clear start debounce on stop
+            response_payload["message"] = "Walk stopped and saved successfully"
+            return jsonify(response_payload), 200
+        else:
+            response_payload["error"] = result.get("error", "")
+            return jsonify(response_payload), 500
+    finally:
+        _ble_lock.release()
 
 @app.route("/status", methods=['GET'])
 def status():

@@ -14,6 +14,7 @@ from ph4_walkingpad.pad import WalkingPad, Controller
 from ph4_walkingpad.utils import setup_logging
 from bleak import BleakScanner
 from dotenv import load_dotenv
+import signal
 import sys
 
 def log_with_timestamp(message):
@@ -151,6 +152,11 @@ async def start_walking(address):
                 metrics["attempts"].append(attempt_record)
                 log_with_timestamp(f"⚠️  First connection attempt failed: {error_text}")
                 log_metric("connection", attempt=attempt_no, status="timeout", error=error_name)
+                # Disconnect failed controller before retry (prevents orphaned BLE connection)
+                try:
+                    await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+                except Exception:
+                    pass
                 # Reset Bleak cache and try again
                 reset_bleak_cache()
                 await asyncio.sleep(0.5)  # Brief pause after reset
@@ -174,6 +180,11 @@ async def start_walking(address):
                 metrics["attempts"].append(attempt_record)
                 log_with_timestamp(f"❌ Start walk failed after BLE reset attempt: {error_text}")
                 log_metric("connection", attempt=attempt_no, status="failed", error=error_name, elapsed=elapsed)
+                # Disconnect failed controller before returning
+                try:
+                    await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+                except Exception:
+                    pass
                 return {"success": False, "error": str(e), "time": elapsed, "metrics": metrics}
 
     try:
@@ -219,6 +230,13 @@ async def start_walking(address):
         log_metric("start_walk", success=False, total_time=elapsed, error=type(e).__name__)
         metrics["total_time"] = round(elapsed, 2)
         return {"success": False, "error": str(e), "time": elapsed, "metrics": metrics}
+    finally:
+        # Always ensure BLE disconnect on any exit path (including SIGINT/process kill)
+        try:
+            if controller and hasattr(controller, 'client') and controller.client:
+                await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+        except Exception:
+            pass
 
 async def main():
     """Main entry point"""
@@ -231,6 +249,9 @@ async def main():
         return {"success": False, "error": str(e)}
 
 if __name__ == "__main__":
+    # Convert SIGTERM to KeyboardInterrupt so asyncio.run() triggers finally blocks
+    # (which disconnect BLE cleanly instead of orphaning the connection)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
     result = asyncio.run(main())
     if not result["success"]:
         exit(1)

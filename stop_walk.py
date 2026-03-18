@@ -8,6 +8,7 @@ import asyncio
 import time
 import yaml
 import os
+import signal
 import psycopg2
 import requests
 from datetime import datetime, timedelta
@@ -219,7 +220,11 @@ async def stop_walking(address):
             log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {error_msg}")
 
             if attempt < max_attempts - 1:  # Not the last attempt
-                # More aggressive reset for running pads
+                # Disconnect failed controller before retry (prevents orphaned BLE connection)
+                try:
+                    await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+                except Exception:
+                    pass
                 reset_bleak_cache()
                 await asyncio.sleep(PERFORMANCE_CONFIG["retry_sleep"] * (attempt + 1))  # Progressive delay
                 continue
@@ -322,6 +327,13 @@ async def stop_walking(address):
         elapsed = time.time() - start_time
         log_with_timestamp(f"❌ Stop walk failed after {elapsed:.1f}s: {e}")
         return {"success": False, "error": str(e), "time": elapsed, "workout": workout_data}
+    finally:
+        # Always ensure BLE disconnect on any exit path (including SIGINT/process kill)
+        try:
+            if controller and hasattr(controller, 'client') and controller.client:
+                await asyncio.wait_for(controller.disconnect(), timeout=3.0)
+        except Exception:
+            pass
 
 async def main():
     """Main entry point"""
@@ -334,6 +346,9 @@ async def main():
         return {"success": False, "error": str(e)}
 
 if __name__ == "__main__":
+    # Convert SIGTERM to KeyboardInterrupt so asyncio.run() triggers finally blocks
+    # (which disconnect BLE cleanly instead of orphaning the connection)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
     result = asyncio.run(main())
     if not result["success"]:
         exit(1)
