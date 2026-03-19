@@ -106,9 +106,11 @@ async def start_walking(address):
         "advertising": None,
     }
 
+    step_start = time.time()
     advertising_present = await ensure_advertising(address, timeout=2.0)
     metrics["advertising"] = advertising_present
-    log_metric("preflight", advertising=advertising_present)
+    log_with_timestamp(f"📡 Device advertising: {advertising_present} ({time.time() - step_start:.1f}s)")
+    log_metric("preflight", advertising=advertising_present, elapsed=round(time.time() - step_start, 2))
 
     for attempt in range(max_attempts):
         try:

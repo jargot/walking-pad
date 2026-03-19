@@ -34700,3 +34700,721 @@ asyncio.exceptions.InvalidStateError: invalid state
 [2026-03-18 10:24:27.743] ✅ All scripts found
  * Serving Flask app 'simple_server'
  * Debug mode: off
+[2026-03-18 12:13:10.447] 📥 Received start walk request
+[2026-03-18 12:13:10.497] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-18 12:13:10.497] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-18 12:13:10.497] 🏃 Running start_walk.py...
+[2026-03-18 12:13:15.424] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2026-03-18T11:13:13.080141Z'}
+[2026-03-18 12:13:15.424] 📈 Metric connection: {'attempt': 1, 'elapsed': 2.0799407958984375, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2026-03-18T11:13:15.161275Z'}
+[2026-03-18 12:13:15.424] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 3.3952183723449707, 'ts': '2026-03-18T11:13:15.331398Z'}
+[2026-03-18 12:13:15.424] ✅ start_walk.py completed successfully in 4.9s
+[2026-03-18 12:13:15.426] 🎉 start_walk.py succeeded on attempt 1 (total: 4.9s)
+[2026-03-18 12:15:44.197] 📥 Received save and stop request
+[2026-03-18 12:15:44.213] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-18 12:15:44.213] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-18 12:15:44.213] 🏃 Running stop_walk.py...
+[2026-03-18 12:15:54.546] ✅ stop_walk.py completed successfully in 10.3s
+[2026-03-18 12:15:54.546] 🎉 stop_walk.py succeeded on attempt 1 (total: 10.3s)
+[2026-03-18 12:16:46.261] 📥 Received start walk request
+[2026-03-18 12:16:46.261] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-18 12:16:46.261] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-18 12:16:46.261] 🏃 Running start_walk.py...
+[2026-03-18 12:16:49.094] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2026-03-18T11:16:47.204846Z'}
+[2026-03-18 12:16:49.094] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.6156198978424072, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2026-03-18T11:16:48.854014Z'}
+[2026-03-18 12:16:49.094] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.6074581146240234, 'ts': '2026-03-18T11:16:49.041439Z'}
+[2026-03-18 12:16:49.094] ✅ start_walk.py completed successfully in 2.8s
+[2026-03-18 12:16:49.094] 🎉 start_walk.py succeeded on attempt 1 (total: 2.8s)
+[2026-03-18 12:21:14.601] 📥 Received save and stop request
+[2026-03-18 12:21:14.603] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-18 12:21:14.604] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-18 12:21:14.604] 🏃 Running stop_walk.py...
+[2026-03-18 12:21:42.422] ⚠️  Rejected /startwalk — another BLE operation in progress
+[2026-03-18 12:21:44.621] ⏱️  stop_walk.py timed out, sending SIGINT for graceful BLE disconnect...
+[2026-03-18 12:21:44.677] ⏱️  stop_walk.py shut down gracefully after SIGINT
+[2026-03-18 12:21:44.677] ⚠️  Attempt 1 failed: Script timed out after 30 seconds
+[2026-03-18 12:21:44.677] ⏳ Waiting 2s before retry...
+[2026-03-18 12:21:46.763] 🎯 Attempt 2/3 for stop_walk.py
+[2026-03-18 12:21:46.763] 🏃 Running stop_walk.py...
+[2026-03-18 12:21:54.168] ✅ stop_walk.py completed successfully in 7.4s
+[2026-03-18 12:21:54.168] 🎉 stop_walk.py succeeded on attempt 2 (total: 39.6s)
+[2026-03-18 16:00:32.090] 📥 Received start walk request
+[2026-03-18 16:00:32.094] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-18 16:00:32.095] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-18 16:00:32.096] 🏃 Running start_walk.py...
+[2026-03-18 16:00:35.578] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2026-03-18T15:00:33.191853Z'}
+[2026-03-18 16:00:35.578] 📈 Metric connection: {'attempt': 1, 'elapsed': 2.0024380683898926, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2026-03-18T15:00:35.194953Z'}
+[2026-03-18 16:00:35.578] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.4192559719085693, 'ts': '2026-03-18T15:00:35.381412Z'}
+[2026-03-18 16:00:35.584] ✅ start_walk.py completed successfully in 3.5s
+[2026-03-18 16:00:35.598] 🎉 start_walk.py succeeded on attempt 1 (total: 3.5s)
+[2026-03-18 16:15:21.538] 📥 Received save and stop request
+[2026-03-18 16:15:21.544] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-18 16:15:21.545] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-18 16:15:21.545] 🏃 Running stop_walk.py...
+[2026-03-18 16:15:30.526] ✅ stop_walk.py completed successfully in 9.0s
+[2026-03-18 16:15:30.526] 🎉 stop_walk.py succeeded on attempt 1 (total: 9.0s)
+[2026-03-18 16:24:48.019] 📥 Received start walk request
+[2026-03-18 16:24:48.021] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-18 16:24:48.022] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-18 16:24:48.022] 🏃 Running start_walk.py...
+[2026-03-18 16:24:54.125] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2026-03-18T15:24:49.960637Z'}
+[2026-03-18 16:24:54.126] 📈 Metric connection: {'attempt': 1, 'elapsed': 1.941486120223999, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2026-03-18T15:24:51.906260Z'}
+[2026-03-18 16:24:54.126] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.3825740814208984, 'ts': '2026-03-18T15:24:52.155330Z'}
+[2026-03-18 16:24:54.127] ✅ start_walk.py completed successfully in 6.1s
+[2026-03-18 16:24:54.130] 🎉 start_walk.py succeeded on attempt 1 (total: 6.1s)
+[2026-03-18 16:33:11.721] 📥 Received save and stop request
+[2026-03-18 16:33:11.725] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-18 16:33:11.726] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-18 16:33:11.726] 🏃 Running stop_walk.py...
+[2026-03-18 16:33:41.763] ⏱️  stop_walk.py timed out, sending SIGINT for graceful BLE disconnect...
+[2026-03-18 16:33:41.838] ⏱️  stop_walk.py shut down gracefully after SIGINT
+[2026-03-18 16:33:41.838] ⚠️  Attempt 1 failed: Script timed out after 30 seconds
+[2026-03-18 16:33:41.838] ⏳ Waiting 2s before retry...
+[2026-03-18 16:33:43.876] 🎯 Attempt 2/3 for stop_walk.py
+[2026-03-18 16:33:43.876] 🏃 Running stop_walk.py...
+[2026-03-18 16:34:11.710] ✅ stop_walk.py completed successfully in 27.8s
+[2026-03-18 16:34:11.710] 🎉 stop_walk.py succeeded on attempt 2 (total: 60.0s)
+[2026-03-18 16:49:57.530] 📥 Received start walk request
+[2026-03-18 16:49:57.535] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-18 16:49:57.536] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-18 16:49:57.536] 🏃 Running start_walk.py...
+[2026-03-18 16:50:01.348] 📈 Metric preflight: {'advertising': True, 'event': 'preflight', 'ts': '2026-03-18T15:49:58.727372Z'}
+[2026-03-18 16:50:01.348] 📈 Metric connection: {'attempt': 1, 'elapsed': 2.379473924636841, 'event': 'connection', 'status': 'connected', 'timeout': 4.0, 'ts': '2026-03-18T15:50:01.108175Z'}
+[2026-03-18 16:50:01.348] 📈 Metric start_walk: {'attempts': 1, 'event': 'start_walk', 'success': True, 'total_time': 2.9422378540039062, 'ts': '2026-03-18T15:50:01.296400Z'}
+[2026-03-18 16:50:01.348] ✅ start_walk.py completed successfully in 3.8s
+[2026-03-18 16:50:01.348] 🎉 start_walk.py succeeded on attempt 1 (total: 3.8s)
+[2026-03-18 17:16:44.328] 📥 Received save and stop request
+[2026-03-18 17:16:44.334] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-18 17:16:44.334] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-18 17:16:44.334] 🏃 Running stop_walk.py...
+[2026-03-18 17:17:14.385] ⏱️  stop_walk.py timed out, sending SIGINT for graceful BLE disconnect...
+[2026-03-18 17:17:14.465] ⏱️  stop_walk.py shut down gracefully after SIGINT
+[2026-03-18 17:17:14.465] ⚠️  Attempt 1 failed: Script timed out after 30 seconds
+[2026-03-18 17:17:14.465] ⏳ Waiting 2s before retry...
+[2026-03-18 17:17:16.540] 🎯 Attempt 2/3 for stop_walk.py
+[2026-03-18 17:17:16.540] 🏃 Running stop_walk.py...
+[2026-03-18 17:17:38.214] ✅ stop_walk.py completed successfully in 21.7s
+[2026-03-18 17:17:38.214] 🎉 stop_walk.py succeeded on attempt 2 (total: 53.9s)
+[2026-03-19 08:34:05.339] 📥 Received start walk request
+[2026-03-19 08:34:05.344] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 08:34:05.345] 🎯 Attempt 1/3 for start_walk.py[2026-03-19 08:48:49.646] 🚀 Starting Simple Stateless WalkingPad Server
+[2026-03-19 08:48:49.647] 📋 Approach: Always discover → connect → command → disconnect
+[2026-03-19 08:48:49.647] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2026-03-19 08:52:04.114] 🚀 Starting Simple Stateless WalkingPad Server
+[2026-03-19 08:52:04.114] 📋 Approach: Always discover → connect → command → disconnect
+[2026-03-19 08:52:04.114] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2026-03-19 08:52:17.177] 📥 Received save and stop request
+[2026-03-19 08:52:17.177] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 08:52:17.178] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 08:52:17.178] 🏃 Running stop_walk.py...
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:17.573] 🚀 Using OPTIMIZED performance config
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:19.273] 📡 Device advertising: True (1.7s)
+[2026-03-19 08:52:29.296]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 1.7, "event": "preflight", "ts": "2026-03-19T07:52:19.273547Z"}
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:19.277] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:22.867] ⏱️  Connection completed in 3.6s
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:22.868] 📊 Getting workout statistics...
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:23.371] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:24.884] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:26.388] 📈 Workout stats: 161 steps, 0.08km, 162s (ask took 0.5s)
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:26.388] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 08:52:29.296]   [stop_walk.py] [METRIC] {"elapsed": 3.52, "event": "stats", "steps": 161, "ts": "2026-03-19T07:52:26.388542Z"}
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:26.388] 🛑 Stopping walk sequence...
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:26.388]   → Switching to STANDBY mode
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:27.001]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:27.006]   → Getting final history
+[2026-03-19 08:52:29.296]   [stop_walk.py] [2026-03-19 08:52:27.227]     ⏱️  History: 0.2s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.22, "ts": "2026-03-19T07:52:27.227800Z"}
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:27.227] 💾 Saving to database: 161 steps, 0.08km, 162s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:27.352] ✅ Workout saved to database
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:27.352]     ⏱️  DB save: 0.1s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [METRIC] {"elapsed": 0.12, "event": "db_save", "success": true, "ts": "2026-03-19T07:52:27.352199Z"}
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:27.352] 🏃 Sending to Fitbit: 161 steps, 08:49->3min
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:27.352] 📤 Payload: {'activityId': 90013, 'startTime': '08:49', 'durationMillis': 180000, 'date': '2026-03-19', 'distance': 161, 'distanceUnit': 'steps'}
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.246] 📥 Response: steps=161, calories=3, logId=2957477871174401088
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.246] ✅ Logged to Fitbit successfully
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.247]     ⏱️  Fitbit: 1.9s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [METRIC] {"elapsed": 1.9, "event": "fitbit", "success": true, "ts": "2026-03-19T07:52:29.247714Z"}
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.247] 📱 Disconnecting...
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.250]     ⏱️  Disconnect: 0.0s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [2026-03-19 08:52:29.250] ✅ Walk stopped successfully in 11.7s
+[2026-03-19 08:52:29.297]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 11.68, "ts": "2026-03-19T07:52:29.250215Z"}
+[2026-03-19 08:52:29.297] ✅ stop_walk.py completed successfully in 12.1s
+[2026-03-19 08:52:29.297] 🎉 stop_walk.py succeeded on attempt 1 (total: 12.1s)
+[2026-03-19 08:52:41.117] 📥 Received start walk request
+[2026-03-19 08:52:41.118] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 08:52:41.118] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 08:52:41.118] 🏃 Running start_walk.py...
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:41.533] 📡 Device advertising: True (0.1s)
+[2026-03-19 08:52:43.461]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.15, "event": "preflight", "ts": "2026-03-19T07:52:41.533333Z"}
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:41.533] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.238] ⏱️  Connection completed in 1.7s
+[2026-03-19 08:52:43.461]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 1.7046966552734375, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T07:52:43.239148Z"}
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.239] 🚀 Starting walk sequence...
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.239]   → Switching to MANUAL mode
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.291]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.291]   → Starting belt
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.395]     ⏱️  Belt start: 0.1s
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.395] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.395] 📱 Disconnecting...
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.406] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 08:52:43.461]   [start_walk.py] [2026-03-19 08:52:43.406] ✅ Walk started successfully in 2.0s
+[2026-03-19 08:52:43.461]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 2.019481658935547, "ts": "2026-03-19T07:52:43.406694Z"}
+[2026-03-19 08:52:43.461] ✅ start_walk.py completed successfully in 2.3s
+[2026-03-19 08:52:43.461] 🎉 start_walk.py succeeded on attempt 1 (total: 2.3s)
+[2026-03-19 08:54:38.644] 🚀 Starting Simple Stateless WalkingPad Server
+[2026-03-19 08:54:38.644] 📋 Approach: Always discover → connect → command → disconnect
+[2026-03-19 08:54:38.644] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2026-03-19 08:59:27.892] 📥 Received save and stop request
+[2026-03-19 08:59:27.897] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 08:59:27.898] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 08:59:27.898] 🏃 Running stop_walk.py...
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:28.749] 🚀 Using OPTIMIZED performance config
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:29.448] 📡 Device advertising: True (0.7s)
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.7, "event": "preflight", "ts": "2026-03-19T07:59:29.449168Z"}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:29.452] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:32.446] ⏱️  Connection completed in 3.0s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:32.446] 📊 Getting workout statistics...
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:32.949] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:34.471] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:35.976] 📈 Workout stats: 403 steps, 0.22km, 408s (ask took 0.5s)
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:35.976] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"elapsed": 3.53, "event": "stats", "steps": 403, "ts": "2026-03-19T07:59:35.976189Z"}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:35.976] 🛑 Stopping walk sequence...
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:35.976]   → Switching to STANDBY mode
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:36.699]     ⏱️  STANDBY switch: 0.7s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:36.702]   → Getting final history
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.053]     ⏱️  History: 0.3s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.35, "ts": "2026-03-19T07:59:37.053361Z"}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.056] 💾 Saving to database: 403 steps, 0.22km, 408s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.356] ✅ Workout saved to database
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.356]     ⏱️  DB save: 0.3s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"elapsed": 0.3, "event": "db_save", "success": true, "ts": "2026-03-19T07:59:37.356722Z"}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.356] 🏃 Sending to Fitbit: 403 steps, 08:52->7min
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:37.356] 📤 Payload: {'activityId': 90013, 'startTime': '08:52', 'durationMillis': 420000, 'date': '2026-03-19', 'distance': 403, 'distanceUnit': 'steps'}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.740] 📥 Response: steps=403, calories=8, logId=4781537799700783432
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.740] ✅ Logged to Fitbit successfully
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.741]     ⏱️  Fitbit: 2.4s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"elapsed": 2.38, "event": "fitbit", "success": true, "ts": "2026-03-19T07:59:39.741811Z"}
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.741] 📱 Disconnecting...
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.746]     ⏱️  Disconnect: 0.0s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [2026-03-19 08:59:39.746] ✅ Walk stopped successfully in 11.0s
+[2026-03-19 08:59:39.789]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 11.0, "ts": "2026-03-19T07:59:39.746286Z"}
+[2026-03-19 08:59:39.789] ✅ stop_walk.py completed successfully in 11.9s
+[2026-03-19 08:59:39.789] 🎉 stop_walk.py succeeded on attempt 1 (total: 11.9s)
+[2026-03-19 09:11:40.492] 📥 Received start walk request
+[2026-03-19 09:11:40.497] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 09:11:40.498] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 09:11:40.498] 🏃 Running start_walk.py...
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:42.225] 📡 Device advertising: True (0.2s)
+[2026-03-19 09:11:44.062]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.23, "event": "preflight", "ts": "2026-03-19T08:11:42.225302Z"}
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:42.225] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.812] ⏱️  Connection completed in 1.6s
+[2026-03-19 09:11:44.062]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 1.5861859321594238, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T08:11:43.812365Z"}
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.812] 🚀 Starting walk sequence...
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.812]   → Switching to MANUAL mode
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.865]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.865]   → Starting belt
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.979]     ⏱️  Belt start: 0.1s
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.980] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.980] 📱 Disconnecting...
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.987] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 09:11:44.062]   [start_walk.py] [2026-03-19 09:11:43.987] ✅ Walk started successfully in 2.0s
+[2026-03-19 09:11:44.062]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 1.9950230121612549, "ts": "2026-03-19T08:11:43.987125Z"}
+[2026-03-19 09:11:44.062] ✅ start_walk.py completed successfully in 3.6s
+[2026-03-19 09:11:44.062] 🎉 start_walk.py succeeded on attempt 1 (total: 3.6s)
+[2026-03-19 09:13:08.599] 📥 Received save and stop request
+[2026-03-19 09:13:08.601] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 09:13:08.601] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 09:13:08.601] 🏃 Running stop_walk.py...
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:09.012] 🚀 Using OPTIMIZED performance config
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:09.910] 📡 Device advertising: True (0.9s)
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.9, "event": "preflight", "ts": "2026-03-19T08:13:09.910662Z"}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:09.917] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:12.450] ⏱️  Connection completed in 2.5s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:12.450] 📊 Getting workout statistics...
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:12.953] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:14.458] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:15.960] 📈 Workout stats: 88 steps, 0.04km, 88s (ask took 0.5s)
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:15.960] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"elapsed": 3.51, "event": "stats", "steps": 88, "ts": "2026-03-19T08:13:15.960803Z"}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:15.961] 🛑 Stopping walk sequence...
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:15.961]   → Switching to STANDBY mode
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:16.567]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:16.567]   → Getting final history
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:16.786]     ⏱️  History: 0.2s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.22, "ts": "2026-03-19T08:13:16.786776Z"}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:16.786] 💾 Saving to database: 88 steps, 0.04km, 88s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:17.212] ✅ Workout saved to database
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:17.212]     ⏱️  DB save: 0.4s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"elapsed": 0.43, "event": "db_save", "success": true, "ts": "2026-03-19T08:13:17.212411Z"}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:17.212] 🏃 Sending to Fitbit: 88 steps, 09:11->1min
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:17.212] 📤 Payload: {'activityId': 90013, 'startTime': '09:11', 'durationMillis': 60000, 'date': '2026-03-19', 'distance': 88, 'distanceUnit': 'steps'}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.976] 📥 Response: steps=88, calories=1, logId=2764622810789991576
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.976] ✅ Logged to Fitbit successfully
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.978]     ⏱️  Fitbit: 1.8s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"elapsed": 1.77, "event": "fitbit", "success": true, "ts": "2026-03-19T08:13:18.978203Z"}
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.978] 📱 Disconnecting...
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.983]     ⏱️  Disconnect: 0.0s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [2026-03-19 09:13:18.983] ✅ Walk stopped successfully in 10.0s
+[2026-03-19 09:13:19.071]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 9.97, "ts": "2026-03-19T08:13:18.983882Z"}
+[2026-03-19 09:13:19.071] ✅ stop_walk.py completed successfully in 10.5s
+[2026-03-19 09:13:19.071] 🎉 stop_walk.py succeeded on attempt 1 (total: 10.5s)
+[2026-03-19 09:18:11.121] 📥 Received start walk request
+[2026-03-19 09:18:11.223] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 09:18:11.236] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 09:18:11.236] 🏃 Running start_walk.py...
+[2026-03-19 09:18:18.582]   [start_walk.py] [2026-03-19 09:18:14.722] 📡 Device advertising: False (2.3s)
+[2026-03-19 09:18:18.583]   [start_walk.py] [METRIC] {"advertising": false, "elapsed": 2.34, "event": "preflight", "ts": "2026-03-19T08:18:14.725302Z"}
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:14.757] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.279] ⏱️  Connection completed in 3.5s
+[2026-03-19 09:18:18.583]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 3.521854877471924, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T08:18:18.280005Z"}
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.281] 🚀 Starting walk sequence...
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.282]   → Switching to MANUAL mode
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.344]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.344]   → Starting belt
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.478]     ⏱️  Belt start: 0.1s
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.478] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.478] 📱 Disconnecting...
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.482] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 09:18:18.583]   [start_walk.py] [2026-03-19 09:18:18.482] ✅ Walk started successfully in 6.1s
+[2026-03-19 09:18:18.583]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 6.095881938934326, "ts": "2026-03-19T08:18:18.482715Z"}
+[2026-03-19 09:18:18.583] ✅ start_walk.py completed successfully in 7.3s
+[2026-03-19 09:18:18.583] 🎉 start_walk.py succeeded on attempt 1 (total: 7.4s)
+[2026-03-19 09:29:48.335] 📥 Received save and stop request
+[2026-03-19 09:29:48.344] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 09:29:48.344] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 09:29:48.344] 🏃 Running stop_walk.py...
+[2026-03-19 09:30:05.074]   [stop_walk.py] [2026-03-19 09:29:49.269] 🚀 Using OPTIMIZED performance config
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:49.474] 📡 Device advertising: True (0.2s)
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.21, "event": "preflight", "ts": "2026-03-19T08:29:49.474725Z"}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:49.475] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:52.155] ⏱️  Connection completed in 2.7s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:52.155] 📊 Getting workout statistics...
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:52.656] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.162] 📈 Workout stats: 672 steps, 0.38km, 691s (ask took 0.5s)
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.162] ✅ Successfully retrieved workout stats (2.0s)
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"elapsed": 2.01, "event": "stats", "steps": 672, "ts": "2026-03-19T08:29:54.162819Z"}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.162] 🛑 Stopping walk sequence...
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.162]   → Switching to STANDBY mode
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.792]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:54.792]   → Getting final history
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.027]     ⏱️  History: 0.2s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.24, "ts": "2026-03-19T08:29:55.027700Z"}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.027] 💾 Saving to database: 672 steps, 0.38km, 691s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.451] ✅ Workout saved to database
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.451]     ⏱️  DB save: 0.4s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"elapsed": 0.42, "event": "db_save", "success": true, "ts": "2026-03-19T08:29:55.451878Z"}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.452] 🏃 Sending to Fitbit: 672 steps, 09:18->12min
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:29:55.452] 📤 Payload: {'activityId': 90013, 'startTime': '09:18', 'durationMillis': 720000, 'date': '2026-03-19', 'distance': 672, 'distanceUnit': 'steps'}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:04.996] 📥 Response: steps=672, calories=13, logId=9007818823559239056
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:04.996] ✅ Logged to Fitbit successfully
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:04.997]     ⏱️  Fitbit: 9.5s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"elapsed": 9.55, "event": "fitbit", "success": true, "ts": "2026-03-19T08:30:04.998021Z"}
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:04.998] 📱 Disconnecting...
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:05.022]     ⏱️  Disconnect: 0.0s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [2026-03-19 09:30:05.022] ✅ Walk stopped successfully in 15.8s
+[2026-03-19 09:30:05.075]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 15.75, "ts": "2026-03-19T08:30:05.022531Z"}
+[2026-03-19 09:30:05.075] ✅ stop_walk.py completed successfully in 16.7s
+[2026-03-19 09:30:05.075] 🎉 stop_walk.py succeeded on attempt 1 (total: 16.7s)
+[2026-03-19 09:41:41.026] 📥 Received start walk request
+[2026-03-19 09:41:41.030] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 09:41:41.030] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 09:41:41.030] 🏃 Running start_walk.py...
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:41.961] 📡 Device advertising: True (0.2s)
+[2026-03-19 09:41:44.349]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.19, "event": "preflight", "ts": "2026-03-19T08:41:41.963756Z"}
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:41.977] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.095] ⏱️  Connection completed in 2.1s
+[2026-03-19 09:41:44.349]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 2.117812156677246, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T08:41:44.095721Z"}
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.095] 🚀 Starting walk sequence...
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.095]   → Switching to MANUAL mode
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.147]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.147]   → Starting belt
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.291]     ⏱️  Belt start: 0.1s
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.291] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.291] 📱 Disconnecting...
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.295] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 09:41:44.349]   [start_walk.py] [2026-03-19 09:41:44.295] ✅ Walk started successfully in 2.5s
+[2026-03-19 09:41:44.349]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 2.5204973220825195, "ts": "2026-03-19T08:41:44.295188Z"}
+[2026-03-19 09:41:44.349] ✅ start_walk.py completed successfully in 3.3s
+[2026-03-19 09:41:44.349] 🎉 start_walk.py succeeded on attempt 1 (total: 3.3s)
+[2026-03-19 09:44:19.878] 📥 Received save and stop request
+[2026-03-19 09:44:19.890] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 09:44:19.891] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 09:44:19.891] 🏃 Running stop_walk.py...
+[2026-03-19 09:44:31.167]   [stop_walk.py] [2026-03-19 09:44:20.735] 🚀 Using OPTIMIZED performance config
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:21.239] 📡 Device advertising: True (0.5s)
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.5, "event": "preflight", "ts": "2026-03-19T08:44:21.239438Z"}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:21.240] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:22.976] ⏱️  Connection completed in 1.7s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:22.977] 📊 Getting workout statistics...
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:23.482] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:24.991] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:26.499] 📈 Workout stats: 157 steps, 0.08km, 158s (ask took 0.5s)
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:26.501] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"elapsed": 3.52, "event": "stats", "steps": 157, "ts": "2026-03-19T08:44:26.501337Z"}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:26.524] 🛑 Stopping walk sequence...
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:26.524]   → Switching to STANDBY mode
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.156]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.156]   → Getting final history
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.363]     ⏱️  History: 0.2s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.21, "ts": "2026-03-19T08:44:27.363832Z"}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.363] 💾 Saving to database: 157 steps, 0.08km, 158s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.587] ✅ Workout saved to database
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.587]     ⏱️  DB save: 0.2s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"elapsed": 0.22, "event": "db_save", "success": true, "ts": "2026-03-19T08:44:27.587316Z"}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.587] 🏃 Sending to Fitbit: 157 steps, 09:41->3min
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:27.587] 📤 Payload: {'activityId': 90013, 'startTime': '09:41', 'durationMillis': 180000, 'date': '2026-03-19', 'distance': 157, 'distanceUnit': 'steps'}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.109] 📥 Response: steps=157, calories=3, logId=2171630415196467304
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.109] ✅ Logged to Fitbit successfully
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.113]     ⏱️  Fitbit: 3.5s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"elapsed": 3.53, "event": "fitbit", "success": true, "ts": "2026-03-19T08:44:31.113140Z"}
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.113] 📱 Disconnecting...
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.117]     ⏱️  Disconnect: 0.0s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [2026-03-19 09:44:31.117] ✅ Walk stopped successfully in 10.4s
+[2026-03-19 09:44:31.168]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 10.38, "ts": "2026-03-19T08:44:31.117104Z"}
+[2026-03-19 09:44:31.168] ✅ stop_walk.py completed successfully in 11.3s
+[2026-03-19 09:44:31.168] 🎉 stop_walk.py succeeded on attempt 1 (total: 11.3s)
+[2026-03-19 10:18:03.335] 📥 Received start walk request
+[2026-03-19 10:18:03.342] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 10:18:03.342] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 10:18:03.342] 🏃 Running start_walk.py...
+[2026-03-19 10:18:06.915]   [start_walk.py] [2026-03-19 10:18:04.909] 📡 Device advertising: True (0.9s)
+[2026-03-19 10:18:06.915]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.89, "event": "preflight", "ts": "2026-03-19T09:18:04.909595Z"}
+[2026-03-19 10:18:06.915]   [start_walk.py] [2026-03-19 10:18:04.911] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 10:18:06.915]   [start_walk.py] [2026-03-19 10:18:06.687] ⏱️  Connection completed in 1.8s
+[2026-03-19 10:18:06.915]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 1.7768242359161377, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T09:18:06.687979Z"}
+[2026-03-19 10:18:06.915]   [start_walk.py] [2026-03-19 10:18:06.688] 🚀 Starting walk sequence...
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.688]   → Switching to MANUAL mode
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.740]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.740]   → Starting belt
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.858]     ⏱️  Belt start: 0.1s
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.859] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.859] 📱 Disconnecting...
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.869] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 10:18:06.916]   [start_walk.py] [2026-03-19 10:18:06.869] ✅ Walk started successfully in 2.9s
+[2026-03-19 10:18:06.916]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 2.852369785308838, "ts": "2026-03-19T09:18:06.869382Z"}
+[2026-03-19 10:18:06.916] ✅ start_walk.py completed successfully in 3.6s
+[2026-03-19 10:18:06.916] 🎉 start_walk.py succeeded on attempt 1 (total: 3.6s)
+[2026-03-19 10:20:49.268] 📥 Received save and stop request
+[2026-03-19 10:20:49.279] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 10:20:49.279] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 10:20:49.280] 🏃 Running stop_walk.py...
+[2026-03-19 10:20:58.410]   [stop_walk.py] [2026-03-19 10:20:50.107] 🚀 Using OPTIMIZED performance config
+[2026-03-19 10:20:58.410]   [stop_walk.py] [2026-03-19 10:20:50.402] 📡 Device advertising: True (0.3s)
+[2026-03-19 10:20:58.410]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.29, "event": "preflight", "ts": "2026-03-19T09:20:50.402083Z"}
+[2026-03-19 10:20:58.410]   [stop_walk.py] [2026-03-19 10:20:50.403] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:51.661] ⏱️  Connection completed in 1.3s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:51.661] 📊 Getting workout statistics...
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:52.163] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:53.693] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.208] 📈 Workout stats: 175 steps, 0.09km, 164s (ask took 0.5s)
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.208] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 10:20:58.411]   [stop_walk.py] [METRIC] {"elapsed": 3.55, "event": "stats", "steps": 175, "ts": "2026-03-19T09:20:55.208928Z"}
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.209] 🛑 Stopping walk sequence...
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.209]   → Switching to STANDBY mode
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.828]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:55.828]   → Getting final history
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.041]     ⏱️  History: 0.2s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.21, "ts": "2026-03-19T09:20:56.041595Z"}
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.043] 💾 Saving to database: 175 steps, 0.09km, 164s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.387] ✅ Workout saved to database
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.387]     ⏱️  DB save: 0.3s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [METRIC] {"elapsed": 0.34, "event": "db_save", "success": true, "ts": "2026-03-19T09:20:56.387362Z"}
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.387] 🏃 Sending to Fitbit: 175 steps, 10:18->3min
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:56.387] 📤 Payload: {'activityId': 90013, 'startTime': '10:18', 'durationMillis': 180000, 'date': '2026-03-19', 'distance': 175, 'distanceUnit': 'steps'}
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.320] 📥 Response: steps=175, calories=3, logId=2064703105841154344
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.320] ✅ Logged to Fitbit successfully
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.321]     ⏱️  Fitbit: 1.9s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [METRIC] {"elapsed": 1.93, "event": "fitbit", "success": true, "ts": "2026-03-19T09:20:58.321918Z"}
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.321] 📱 Disconnecting...
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.323]     ⏱️  Disconnect: 0.0s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [2026-03-19 10:20:58.323] ✅ Walk stopped successfully in 8.2s
+[2026-03-19 10:20:58.411]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 8.22, "ts": "2026-03-19T09:20:58.324005Z"}
+[2026-03-19 10:20:58.411] ✅ stop_walk.py completed successfully in 9.1s
+[2026-03-19 10:20:58.411] 🎉 stop_walk.py succeeded on attempt 1 (total: 9.1s)
+[2026-03-19 12:56:06.328] 📥 Received start walk request
+[2026-03-19 12:56:06.338] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 12:56:06.341] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 12:56:06.341] 🏃 Running start_walk.py...
+[2026-03-19 12:56:11.731]   [start_walk.py] [2026-03-19 12:56:10.051] 📡 Device advertising: True (0.5s)
+[2026-03-19 12:56:11.732]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.65, "event": "preflight", "ts": "2026-03-19T11:56:10.076460Z"}
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:10.090] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.471] ⏱️  Connection completed in 1.4s
+[2026-03-19 12:56:11.732]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 1.3814988136291504, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T11:56:11.471598Z"}
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.471] 🚀 Starting walk sequence...
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.471]   → Switching to MANUAL mode
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.537]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.537]   → Starting belt
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.673]     ⏱️  Belt start: 0.1s
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.673] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.673] 📱 Disconnecting...
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.682] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 12:56:11.732]   [start_walk.py] [2026-03-19 12:56:11.682] ✅ Walk started successfully in 2.3s
+[2026-03-19 12:56:11.732]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 2.260343074798584, "ts": "2026-03-19T11:56:11.682332Z"}
+[2026-03-19 12:56:11.732] ✅ start_walk.py completed successfully in 5.4s
+[2026-03-19 12:56:11.732] 🎉 start_walk.py succeeded on attempt 1 (total: 5.4s)
+[2026-03-19 13:19:19.963] 📥 Received save and stop request
+[2026-03-19 13:19:20.120] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 13:19:20.130] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 13:19:20.142] 🏃 Running stop_walk.py...
+[2026-03-19 13:19:34.930]   [stop_walk.py] [2026-03-19 13:19:23.268] 🚀 Using OPTIMIZED performance config
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:24.248] 📡 Device advertising: True (1.0s)
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.98, "event": "preflight", "ts": "2026-03-19T12:19:24.248437Z"}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:24.249] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:26.584] ⏱️  Connection completed in 2.3s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:26.584] 📊 Getting workout statistics...
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:27.086] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:28.665] ⚠️  Attempt 2: No status available, retrying... (0.6s)
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.205] 📈 Workout stats: 1396 steps, 0.77km, 1393s (ask took 0.5s)
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.205] ✅ Successfully retrieved workout stats (3.6s)
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"elapsed": 3.62, "event": "stats", "steps": 1396, "ts": "2026-03-19T12:19:30.205742Z"}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.205] 🛑 Stopping walk sequence...
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.205]   → Switching to STANDBY mode
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.839]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:30.839]   → Getting final history
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:31.060]     ⏱️  History: 0.2s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.22, "ts": "2026-03-19T12:19:31.060278Z"}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:31.060] 💾 Saving to database: 1396 steps, 0.77km, 1393s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:32.383] ✅ Workout saved to database
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:32.383]     ⏱️  DB save: 1.3s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"elapsed": 1.32, "event": "db_save", "success": true, "ts": "2026-03-19T12:19:32.383793Z"}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:32.384] 🏃 Sending to Fitbit: 1396 steps, 12:56->23min
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:32.384] 📤 Payload: {'activityId': 90013, 'startTime': '12:56', 'durationMillis': 1380000, 'date': '2026-03-19', 'distance': 1396, 'distanceUnit': 'steps'}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.843] 📥 Response: steps=1396, calories=54, logId=6313963777908057752
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.843] ✅ Logged to Fitbit successfully
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.845]     ⏱️  Fitbit: 2.5s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"elapsed": 2.46, "event": "fitbit", "success": true, "ts": "2026-03-19T12:19:34.845056Z"}
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.845] 📱 Disconnecting...
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.847]     ⏱️  Disconnect: 0.0s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [2026-03-19 13:19:34.847] ✅ Walk stopped successfully in 11.6s
+[2026-03-19 13:19:34.939]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 11.58, "ts": "2026-03-19T12:19:34.847845Z"}
+[2026-03-19 13:19:34.939] ✅ stop_walk.py completed successfully in 14.8s
+[2026-03-19 13:19:34.939] 🎉 stop_walk.py succeeded on attempt 1 (total: 14.8s)
+[2026-03-19 14:55:51.697] 📥 Received start walk request
+[2026-03-19 14:55:51.730] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 14:55:51.740] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 14:55:51.740] 🏃 Running start_walk.py...
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:52.409] 📡 Device advertising: True (0.2s)
+[2026-03-19 14:55:53.631]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.17, "event": "preflight", "ts": "2026-03-19T13:55:52.409213Z"}
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:52.411] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.363] ⏱️  Connection completed in 1.0s
+[2026-03-19 14:55:53.631]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 0.952232837677002, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T13:55:53.363874Z"}
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.363] 🚀 Starting walk sequence...
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.363]   → Switching to MANUAL mode
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.415]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.415]   → Starting belt
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.525]     ⏱️  Belt start: 0.1s
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.525] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.525] 📱 Disconnecting...
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.529] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 14:55:53.631]   [start_walk.py] [2026-03-19 14:55:53.529] ✅ Walk started successfully in 1.3s
+[2026-03-19 14:55:53.631]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 1.2862861156463623, "ts": "2026-03-19T13:55:53.529177Z"}
+[2026-03-19 14:55:53.631] ✅ start_walk.py completed successfully in 1.9s
+[2026-03-19 14:55:53.631] 🎉 start_walk.py succeeded on attempt 1 (total: 1.9s)
+[2026-03-19 15:12:00.189] 🚀 Starting Simple Stateless WalkingPad Server
+[2026-03-19 15:12:00.190] 📋 Approach: Always discover → connect → command → disconnect
+[2026-03-19 15:12:00.190] ✅ All scripts found
+ * Serving Flask app 'simple_server'
+ * Debug mode: off
+[2026-03-19 15:12:18.751] 📥 Received set speed request: 20 (2.0 km/h)
+[2026-03-19 15:12:18.752] 🔄 Starting set_speed.py 20 with up to 2 retries...
+[2026-03-19 15:12:18.752] 🎯 Attempt 1/2 for set_speed.py 20
+[2026-03-19 15:12:18.752] 🏃 Running set_speed.py 20...
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:20.630] 📡 Device advertising: True (1.7s)
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [METRIC] {"advertising": true, "elapsed": 1.72, "event": "preflight", "ts": "2026-03-19T14:12:20.631055Z"}
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:20.632] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.348] ⏱️  Connection completed in 2.7s
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [METRIC] {"elapsed": 2.72, "event": "connection", "status": "connected", "ts": "2026-03-19T14:12:23.349036Z"}
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.349] 🏃 Setting speed to 2.0 km/h (raw: 20)
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.400] ⏱️  Speed set in 0.1s
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.400] 📱 Disconnecting...
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.404] ⏱️  Disconnect in 0.0s
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [2026-03-19 15:12:23.404] ✅ Speed set to 2.0 km/h in 4.5s
+[2026-03-19 15:12:23.452]   [set_speed.py 20] [METRIC] {"event": "set_speed", "speed": 20, "success": true, "total_time": 4.49, "ts": "2026-03-19T14:12:23.404977Z"}
+[2026-03-19 15:12:23.452] ✅ set_speed.py 20 completed successfully in 4.7s
+[2026-03-19 15:12:23.452] 🎉 set_speed.py 20 succeeded on attempt 1 (total: 4.7s)
+[2026-03-19 15:18:38.913] 📥 Received save and stop request
+[2026-03-19 15:18:38.926] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 15:18:38.926] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 15:18:38.926] 🏃 Running stop_walk.py...
+[2026-03-19 15:18:47.020]   [stop_walk.py] [2026-03-19 15:18:39.350] 🚀 Using OPTIMIZED performance config
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:39.549] 📡 Device advertising: True (0.2s)
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.2, "event": "preflight", "ts": "2026-03-19T14:18:39.549918Z"}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:39.550] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:40.597] ⏱️  Connection completed in 1.0s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:40.597] 📊 Getting workout statistics...
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:41.099] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:42.602] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.106] 📈 Workout stats: 1127 steps, 0.52km, 1188s (ask took 0.5s)
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.108] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"elapsed": 3.51, "event": "stats", "steps": 1127, "ts": "2026-03-19T14:18:44.108705Z"}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.108] 🛑 Stopping walk sequence...
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.108]   → Switching to STANDBY mode
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.720]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.720]   → Getting final history
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.930]     ⏱️  History: 0.2s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.21, "ts": "2026-03-19T14:18:44.930404Z"}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:44.930] 💾 Saving to database: 1127 steps, 0.52km, 1188s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:45.160] ✅ Workout saved to database
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:45.160]     ⏱️  DB save: 0.2s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"elapsed": 0.23, "event": "db_save", "success": true, "ts": "2026-03-19T14:18:45.160683Z"}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:45.167] 🏃 Sending to Fitbit: 1127 steps, 14:58->20min
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:45.167] 📤 Payload: {'activityId': 90013, 'startTime': '14:58', 'durationMillis': 1200000, 'date': '2026-03-19', 'distance': 1127, 'distanceUnit': 'steps'}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.956] 📥 Response: steps=1127, calories=23, logId=2230110227792243112
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.956] ✅ Logged to Fitbit successfully
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.958]     ⏱️  Fitbit: 1.8s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"elapsed": 1.8, "event": "fitbit", "success": true, "ts": "2026-03-19T14:18:46.958502Z"}
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.958] 📱 Disconnecting...
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.961]     ⏱️  Disconnect: 0.0s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [2026-03-19 15:18:46.961] ✅ Walk stopped successfully in 7.6s
+[2026-03-19 15:18:47.021]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 7.61, "ts": "2026-03-19T14:18:46.961259Z"}
+[2026-03-19 15:18:47.021] ✅ stop_walk.py completed successfully in 8.1s
+[2026-03-19 15:18:47.021] 🎉 stop_walk.py succeeded on attempt 1 (total: 8.1s)
+[2026-03-19 15:19:52.107] 📥 Received set speed request: 10 (1.0 km/h)
+[2026-03-19 15:19:52.137] 🔄 Starting set_speed.py 10 with up to 2 retries...
+[2026-03-19 15:19:52.137] 🎯 Attempt 1/2 for set_speed.py 10
+[2026-03-19 15:19:52.137] 🏃 Running set_speed.py 10...
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:52.547] 📡 Device advertising: True (0.2s)
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [METRIC] {"advertising": true, "elapsed": 0.2, "event": "preflight", "ts": "2026-03-19T14:19:52.547243Z"}
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:52.547] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:53.686] ⏱️  Connection completed in 1.1s
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [METRIC] {"elapsed": 1.14, "event": "connection", "status": "connected", "ts": "2026-03-19T14:19:53.686266Z"}
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:53.686] 🏃 Setting speed to 1.0 km/h (raw: 10)
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:53.761] ⏱️  Speed set in 0.1s
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:53.780] 📱 Disconnecting...
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:54.487] ⏱️  Disconnect in 0.7s
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [2026-03-19 15:19:54.488] ✅ Speed set to 1.0 km/h in 2.1s
+[2026-03-19 15:19:54.758]   [set_speed.py 10] [METRIC] {"event": "set_speed", "speed": 10, "success": true, "total_time": 2.14, "ts": "2026-03-19T14:19:54.491811Z"}
+[2026-03-19 15:19:54.758] ✅ set_speed.py 10 completed successfully in 2.6s
+[2026-03-19 15:19:54.758] 🎉 set_speed.py 10 succeeded on attempt 1 (total: 2.6s)
+[2026-03-19 15:20:08.465] 📥 Received start walk request
+[2026-03-19 15:20:08.466] 🔄 Starting start_walk.py with up to 3 retries...
+[2026-03-19 15:20:08.466] 🎯 Attempt 1/3 for start_walk.py
+[2026-03-19 15:20:08.466] 🏃 Running start_walk.py...
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:08.955] 📡 Device advertising: True (0.2s)
+[2026-03-19 15:20:10.130]   [start_walk.py] [METRIC] {"advertising": true, "elapsed": 0.15, "event": "preflight", "ts": "2026-03-19T14:20:08.955608Z"}
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:08.956] 📱 Connecting directly to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:09.909] ⏱️  Connection completed in 1.0s
+[2026-03-19 15:20:10.130]   [start_walk.py] [METRIC] {"attempt": 1, "elapsed": 0.9537267684936523, "event": "connection", "status": "connected", "timeout": 4.0, "ts": "2026-03-19T14:20:09.909982Z"}
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:09.910] 🚀 Starting walk sequence...
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:09.910]   → Switching to MANUAL mode
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:09.967]     ⏱️  MANUAL switch: 0.1s
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:09.967]   → Starting belt
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:10.076]     ⏱️  Belt start: 0.1s
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:10.076] ⏱️  Walk sequence completed in 0.2s
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:10.076] 📱 Disconnecting...
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:10.078] ⏱️  Disconnect completed in 0.0s
+[2026-03-19 15:20:10.130]   [start_walk.py] [2026-03-19 15:20:10.078] ✅ Walk started successfully in 1.3s
+[2026-03-19 15:20:10.130]   [start_walk.py] [METRIC] {"attempts": 1, "event": "start_walk", "success": true, "total_time": 1.2750468254089355, "ts": "2026-03-19T14:20:10.078706Z"}
+[2026-03-19 15:20:10.130] ✅ start_walk.py completed successfully in 1.7s
+[2026-03-19 15:20:10.130] 🎉 start_walk.py succeeded on attempt 1 (total: 1.7s)
+[2026-03-19 15:20:30.039] 📥 Received set speed request: 10 (1.0 km/h)
+[2026-03-19 15:20:30.039] 🔄 Starting set_speed.py 10 with up to 2 retries...
+[2026-03-19 15:20:30.039] 🎯 Attempt 1/2 for set_speed.py 10
+[2026-03-19 15:20:30.039] 🏃 Running set_speed.py 10...
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:30.372] 📡 Device advertising: True (0.1s)
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [METRIC] {"advertising": true, "elapsed": 0.13, "event": "preflight", "ts": "2026-03-19T14:20:30.372407Z"}
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:30.373] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.546] ⏱️  Connection completed in 1.2s
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [METRIC] {"elapsed": 1.17, "event": "connection", "status": "connected", "ts": "2026-03-19T14:20:31.546280Z"}
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.546] 🏃 Setting speed to 1.0 km/h (raw: 10)
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.597] ⏱️  Speed set in 0.1s
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.597] 📱 Disconnecting...
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.599] ⏱️  Disconnect in 0.0s
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [2026-03-19 15:20:31.599] ✅ Speed set to 1.0 km/h in 1.4s
+[2026-03-19 15:20:31.646]   [set_speed.py 10] [METRIC] {"event": "set_speed", "speed": 10, "success": true, "total_time": 1.36, "ts": "2026-03-19T14:20:31.599459Z"}
+[2026-03-19 15:20:31.646] ✅ set_speed.py 10 completed successfully in 1.6s
+[2026-03-19 15:20:31.646] 🎉 set_speed.py 10 succeeded on attempt 1 (total: 1.6s)
+[2026-03-19 15:21:17.487] 📥 Received set speed request: 35 (3.5 km/h)
+[2026-03-19 15:21:17.488] 🔄 Starting set_speed.py 35 with up to 2 retries...
+[2026-03-19 15:21:17.489] 🎯 Attempt 1/2 for set_speed.py 35
+[2026-03-19 15:21:17.489] 🏃 Running set_speed.py 35...
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:17.923] 📡 Device advertising: True (0.2s)
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [METRIC] {"advertising": true, "elapsed": 0.17, "event": "preflight", "ts": "2026-03-19T14:21:17.923155Z"}
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:17.927] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.180] ⏱️  Connection completed in 1.3s
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [METRIC] {"elapsed": 1.25, "event": "connection", "status": "connected", "ts": "2026-03-19T14:21:19.180076Z"}
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.180] 🏃 Setting speed to 3.5 km/h (raw: 35)
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.233] ⏱️  Speed set in 0.1s
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.233] 📱 Disconnecting...
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.235] ⏱️  Disconnect in 0.0s
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [2026-03-19 15:21:19.236] ✅ Speed set to 3.5 km/h in 1.5s
+[2026-03-19 15:21:19.287]   [set_speed.py 35] [METRIC] {"event": "set_speed", "speed": 35, "success": true, "total_time": 1.48, "ts": "2026-03-19T14:21:19.236205Z"}
+[2026-03-19 15:21:19.287] ✅ set_speed.py 35 completed successfully in 1.8s
+[2026-03-19 15:21:19.287] 🎉 set_speed.py 35 succeeded on attempt 1 (total: 1.8s)
+[2026-03-19 15:21:34.140] 📥 Received set speed request: 25 (2.5 km/h)
+[2026-03-19 15:21:34.147] 🔄 Starting set_speed.py 25 with up to 2 retries...
+[2026-03-19 15:21:34.147] 🎯 Attempt 1/2 for set_speed.py 25
+[2026-03-19 15:21:34.147] 🏃 Running set_speed.py 25...
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:34.455] 📡 Device advertising: True (0.1s)
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [METRIC] {"advertising": true, "elapsed": 0.14, "event": "preflight", "ts": "2026-03-19T14:21:34.455210Z"}
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:34.455] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.590] ⏱️  Connection completed in 1.1s
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [METRIC] {"elapsed": 1.13, "event": "connection", "status": "connected", "ts": "2026-03-19T14:21:35.590293Z"}
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.590] 🏃 Setting speed to 2.5 km/h (raw: 25)
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.641] ⏱️  Speed set in 0.1s
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.641] 📱 Disconnecting...
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.655] ⏱️  Disconnect in 0.0s
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [2026-03-19 15:21:35.655] ✅ Speed set to 2.5 km/h in 1.3s
+[2026-03-19 15:21:35.690]   [set_speed.py 25] [METRIC] {"event": "set_speed", "speed": 25, "success": true, "total_time": 1.34, "ts": "2026-03-19T14:21:35.655623Z"}
+[2026-03-19 15:21:35.690] ✅ set_speed.py 25 completed successfully in 1.5s
+[2026-03-19 15:21:35.691] 🎉 set_speed.py 25 succeeded on attempt 1 (total: 1.5s)
+[2026-03-19 15:23:22.751] 📥 Received set speed request: 10 (1.0 km/h)
+[2026-03-19 15:23:22.805] 🔄 Starting set_speed.py 10 with up to 2 retries...
+[2026-03-19 15:23:22.805] 🎯 Attempt 1/2 for set_speed.py 10
+[2026-03-19 15:23:22.806] 🏃 Running set_speed.py 10...
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:24.227] 📡 Device advertising: True (1.0s)
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [METRIC] {"advertising": true, "elapsed": 0.96, "event": "preflight", "ts": "2026-03-19T14:23:24.227149Z"}
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:24.228] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.871] ⏱️  Connection completed in 1.6s
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [METRIC] {"elapsed": 1.64, "event": "connection", "status": "connected", "ts": "2026-03-19T14:23:25.871613Z"}
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.871] 🏃 Setting speed to 1.0 km/h (raw: 10)
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.923] ⏱️  Speed set in 0.1s
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.923] 📱 Disconnecting...
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.927] ⏱️  Disconnect in 0.0s
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [2026-03-19 15:23:25.927] ✅ Speed set to 1.0 km/h in 2.7s
+[2026-03-19 15:23:25.975]   [set_speed.py 10] [METRIC] {"event": "set_speed", "speed": 10, "success": true, "total_time": 2.66, "ts": "2026-03-19T14:23:25.927235Z"}
+[2026-03-19 15:23:25.975] ✅ set_speed.py 10 completed successfully in 3.2s
+[2026-03-19 15:23:25.975] 🎉 set_speed.py 10 succeeded on attempt 1 (total: 3.2s)
+[2026-03-19 15:24:09.428] 📥 Received save and stop request
+[2026-03-19 15:24:09.429] 🔄 Starting stop_walk.py with up to 3 retries...
+[2026-03-19 15:24:09.429] 🎯 Attempt 1/3 for stop_walk.py
+[2026-03-19 15:24:09.429] 🏃 Running stop_walk.py...
+[2026-03-19 15:24:18.278]   [stop_walk.py] [2026-03-19 15:24:09.716] 🚀 Using OPTIMIZED performance config
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:09.859] 📡 Device advertising: True (0.1s)
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"advertising": true, "elapsed": 0.14, "event": "preflight", "ts": "2026-03-19T14:24:09.859126Z"}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:09.859] 📱 Connecting to WalkingPad 4C78A6C6-D3E5-768E-41C3-5ADCF6B4DCA9...
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:11.745] ⏱️  Connection completed in 1.9s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:11.745] 📊 Getting workout statistics...
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:12.255] ⚠️  Attempt 1: No status available, retrying... (0.5s)
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:13.763] ⚠️  Attempt 2: No status available, retrying... (0.5s)
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.288] 📈 Workout stats: 256 steps, 0.12km, 241s (ask took 0.5s)
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.288] ✅ Successfully retrieved workout stats (3.5s)
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"elapsed": 3.54, "event": "stats", "steps": 256, "ts": "2026-03-19T14:24:15.288537Z"}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.288] 🛑 Stopping walk sequence...
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.288]   → Switching to STANDBY mode
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.912]     ⏱️  STANDBY switch: 0.6s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:15.912]   → Getting final history
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.116]     ⏱️  History: 0.2s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"event": "stop_commands", "standby": 0.2, "ts": "2026-03-19T14:24:16.116239Z"}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.116] 💾 Saving to database: 256 steps, 0.12km, 241s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.309] ✅ Workout saved to database
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.309]     ⏱️  DB save: 0.2s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"elapsed": 0.19, "event": "db_save", "success": true, "ts": "2026-03-19T14:24:16.309962Z"}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.310] 🏃 Sending to Fitbit: 256 steps, 15:20->4min
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:16.310] 📤 Payload: {'activityId': 90013, 'startTime': '15:20', 'durationMillis': 240000, 'date': '2026-03-19', 'distance': 256, 'distanceUnit': 'steps'}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.205] 📥 Response: steps=256, calories=7, logId=7110951594924455832
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.205] ✅ Logged to Fitbit successfully
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.223]     ⏱️  Fitbit: 1.9s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"elapsed": 1.91, "event": "fitbit", "success": true, "ts": "2026-03-19T14:24:18.223213Z"}
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.223] 📱 Disconnecting...
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.230]     ⏱️  Disconnect: 0.0s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [2026-03-19 15:24:18.230] ✅ Walk stopped successfully in 8.5s
+[2026-03-19 15:24:18.280]   [stop_walk.py] [METRIC] {"event": "stop_walk", "success": true, "total_time": 8.51, "ts": "2026-03-19T14:24:18.230131Z"}
+[2026-03-19 15:24:18.280] ✅ stop_walk.py completed successfully in 8.8s
+[2026-03-19 15:24:18.280] 🎉 stop_walk.py succeeded on attempt 1 (total: 8.9s)

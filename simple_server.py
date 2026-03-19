@@ -16,6 +16,10 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Force line-buffered stdout so logs appear immediately under launchd
+sys.stdout.reconfigure(line_buffering=True)
+
 app = Flask(__name__)
 
 # Prevent concurrent BLE operations (BLE only supports one connection at a time)
@@ -53,7 +57,7 @@ def run_script(script_name):
         # SIGINT lets asyncio.run() cancel tasks and run finally blocks,
         # which disconnect BLE cleanly instead of orphaning the connection.
         proc = subprocess.Popen(
-            ["uv", "run", "python", script_name],
+            ["uv", "run", "python"] + script_name.split(),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -61,7 +65,7 @@ def run_script(script_name):
         )
 
         try:
-            stdout, stderr = proc.communicate(timeout=30)
+            stdout, stderr = proc.communicate(timeout=45)
         except subprocess.TimeoutExpired:
             log_with_timestamp(f"⏱️  {script_name} timed out, sending SIGINT for graceful BLE disconnect...")
             os.killpg(os.getpgid(proc.pid), signal.SIGINT)
@@ -84,9 +88,10 @@ def run_script(script_name):
         stdout_lines = stdout.strip().split('\n') if stdout and stdout.strip() else []
         metrics = extract_metrics(stdout_lines)
 
-        if metrics:
-            for metric in metrics:
-                log_with_timestamp(f"📈 Metric {metric.get('event')}: {metric}")
+        # Forward all subprocess output to server log for visibility
+        for line in stdout_lines:
+            if line.strip():
+                log_with_timestamp(f"  [{script_name}] {line}")
 
         if proc.returncode == 0:
             log_with_timestamp(f"✅ {script_name} completed successfully in {elapsed:.1f}s")
@@ -243,6 +248,36 @@ def save_and_stop():
     finally:
         _ble_lock.release()
 
+@app.route("/speed", methods=['POST'])
+def set_speed():
+    """Set walking speed"""
+    if not _ble_lock.acquire(blocking=False):
+        log_with_timestamp("⚠️  Rejected /speed — another BLE operation in progress")
+        return jsonify({"error": "Another BLE operation is in progress. Please wait."}), 409
+    try:
+        # Accept speed from JSON body, query param, or form data
+        speed = None
+        if request.is_json:
+            speed = request.json.get("speed")
+        if speed is None:
+            speed = request.args.get("speed") or request.form.get("speed")
+        if speed is None:
+            return jsonify({"error": "Missing 'speed' parameter (0-60, in 0.1 km/h units, e.g. 30 = 3.0 km/h)"}), 400
+
+        speed = int(speed)
+        if speed < 0 or speed > 60:
+            return jsonify({"error": f"Speed {speed} out of range (0-60, i.e. 0-6.0 km/h)"}), 400
+
+        log_with_timestamp(f"📥 Received set speed request: {speed} ({speed/10.0:.1f} km/h)")
+        result = run_script_with_retries(f"set_speed.py {speed}", max_retries=2)
+
+        if result["success"]:
+            return jsonify({"message": f"Speed set to {speed/10.0:.1f} km/h", "speed": speed}), 200
+        else:
+            return jsonify({"error": result.get("error", "")}), 500
+    finally:
+        _ble_lock.release()
+
 @app.route("/status", methods=['GET'])
 def status():
     """Simple status endpoint"""
@@ -268,7 +303,7 @@ if __name__ == '__main__':
     log_with_timestamp("📋 Approach: Always discover → connect → command → disconnect")
 
     # Check if scripts exist
-    for script in ["start_walk.py", "stop_walk.py"]:
+    for script in ["start_walk.py", "stop_walk.py", "set_speed.py"]:
         if not os.path.exists(script):
             log_with_timestamp(f"❌ Missing script: {script}")
             sys.exit(1)

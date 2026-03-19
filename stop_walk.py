@@ -34,6 +34,16 @@ def log_with_timestamp(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     print(f"[{timestamp}] {message}")
 
+def log_metric(event_type, **data):
+    """Emit structured metrics for downstream analysis"""
+    import json
+    entry = {
+        "event": event_type,
+        "ts": datetime.utcnow().isoformat() + "Z",
+    }
+    entry.update(data)
+    print(f"[METRIC] {json.dumps(entry, sort_keys=True)}")
+
 def reset_bleak_cache():
     """Force clear Bleak's internal BLE adapter state (helps intermittent failures)."""
     try:
@@ -187,8 +197,10 @@ async def stop_walking(address):
     log_with_timestamp(f"🚀 Using {PERFORMANCE_CONFIG['name']} performance config")
 
     # Step 0: Check if device is advertising (quick pre-flight check)
+    step_start = time.time()
     advertising_present = await ensure_advertising(address, timeout=2.0)
-    log_with_timestamp(f"📡 Device advertising: {advertising_present}")
+    log_with_timestamp(f"📡 Device advertising: {advertising_present} ({time.time() - step_start:.1f}s)")
+    log_metric("preflight", advertising=advertising_present, elapsed=round(time.time() - step_start, 2))
 
     # Step 1: Enhanced connection with better retry logic
     controller = Controller()
@@ -235,14 +247,17 @@ async def stop_walking(address):
 
     try:
         # Step 2: Get current stats before stopping (with retries)
+        stats_start = time.time()
         log_with_timestamp("📊 Getting workout statistics...")
         stats = None
 
         # Try multiple times to get valid workout stats
         for attempt in range(PERFORMANCE_CONFIG["stats_retries"]):
             try:
+                ask_start = time.time()
                 await asyncio.wait_for(controller.ask_stats(), timeout=PERFORMANCE_CONFIG["stats_timeout"])
                 await asyncio.sleep(PERFORMANCE_CONFIG["stats_sleep"])  # Give time for response
+                ask_elapsed = time.time() - ask_start
 
                 if hasattr(controller, 'last_status') and controller.last_status:
                     stats = controller.last_status
@@ -251,42 +266,53 @@ async def stop_walking(address):
                         workout_data["steps"] = stats.steps
                         workout_data["distance"] = stats.dist / 100  # Convert to km
                         workout_data["time"] = stats.time
-                        log_with_timestamp(f"📈 Workout stats: {workout_data['steps']} steps, {workout_data['distance']:.2f}km, {workout_data['time']}s")
+                        log_with_timestamp(f"📈 Workout stats: {workout_data['steps']} steps, {workout_data['distance']:.2f}km, {workout_data['time']}s (ask took {ask_elapsed:.1f}s)")
                         break
                     else:
-                        log_with_timestamp(f"⚠️  Attempt {attempt + 1}: Got zero stats (steps={stats.steps}, time={stats.time}), retrying...")
+                        log_with_timestamp(f"⚠️  Attempt {attempt + 1}: Got zero stats (steps={stats.steps}, time={stats.time}), retrying... ({ask_elapsed:.1f}s)")
                 else:
-                    log_with_timestamp(f"⚠️  Attempt {attempt + 1}: No status available, retrying...")
+                    log_with_timestamp(f"⚠️  Attempt {attempt + 1}: No status available, retrying... ({ask_elapsed:.1f}s)")
 
             except Exception as e:
-                log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {e}")
+                log_with_timestamp(f"⚠️  Attempt {attempt + 1} failed: {e} ({time.time() - ask_start:.1f}s)")
 
             if attempt < PERFORMANCE_CONFIG["stats_retries"] - 1:  # Don't sleep after last attempt
                 await asyncio.sleep(PERFORMANCE_CONFIG["retry_sleep"])
 
+        stats_elapsed = time.time() - stats_start
         # Final check - if we still don't have valid stats, warn but continue
         if workout_data["steps"] == 0 and workout_data["time"] == 0:
-            log_with_timestamp(f"❌ Could not retrieve valid workout statistics after {PERFORMANCE_CONFIG['stats_retries']} attempts")
+            log_with_timestamp(f"❌ Could not retrieve valid workout statistics after {PERFORMANCE_CONFIG['stats_retries']} attempts ({stats_elapsed:.1f}s)")
         else:
-            log_with_timestamp(f"✅ Successfully retrieved workout stats")
+            log_with_timestamp(f"✅ Successfully retrieved workout stats ({stats_elapsed:.1f}s)")
+        log_metric("stats", elapsed=round(stats_elapsed, 2), steps=workout_data["steps"])
 
         # Step 3: Stop sequence
         log_with_timestamp("🛑 Stopping walk sequence...")
 
+        step_start = time.time()
         log_with_timestamp("  → Switching to STANDBY mode")
         await asyncio.wait_for(controller.switch_mode(WalkingPad.MODE_STANDBY), timeout=PERFORMANCE_CONFIG["command_timeout"])
         await asyncio.sleep(0.1)
+        log_with_timestamp(f"    ⏱️  STANDBY switch: {time.time() - step_start:.1f}s")
 
+        step_start = time.time()
         log_with_timestamp("  → Getting final history")
         await asyncio.wait_for(controller.ask_hist(1), timeout=PERFORMANCE_CONFIG["command_timeout"])
         await asyncio.sleep(0.1)
+        log_with_timestamp(f"    ⏱️  History: {time.time() - step_start:.1f}s")
+        log_metric("stop_commands", standby=round(time.time() - step_start, 2))
 
         # Step 4: Save to database
+        step_start = time.time()
         db_success = store_in_db(
             workout_data["steps"],
             workout_data["distance"],
             workout_data["time"]
         )
+        db_elapsed = time.time() - step_start
+        log_with_timestamp(f"    ⏱️  DB save: {db_elapsed:.1f}s")
+        log_metric("db_save", elapsed=round(db_elapsed, 2), success=db_success)
 
         # Step 4b: Log to Fitbit
         fitbit_success = False
@@ -298,21 +324,28 @@ async def stop_walking(address):
             start_time_str = workout_start_time.strftime("%H:%M")
             duration_minutes = max(1, round(workout_duration_seconds / 60))  # At least 1 minute
 
+            step_start = time.time()
             fitbit_success = log_to_fitbit(
                 workout_data["steps"],
                 duration_minutes,
                 start_time_str
             )
+            fitbit_elapsed = time.time() - step_start
+            log_with_timestamp(f"    ⏱️  Fitbit: {fitbit_elapsed:.1f}s")
+            log_metric("fitbit", elapsed=round(fitbit_elapsed, 2), success=fitbit_success)
 
         # Step 5: Disconnect cleanly (best effort)
+        step_start = time.time()
         log_with_timestamp("📱 Disconnecting...")
         try:
             await asyncio.wait_for(controller.disconnect(), timeout=PERFORMANCE_CONFIG["disconnect_timeout"])
         except Exception as e:
             log_with_timestamp(f"⚠️  Disconnect warning: {e}")
+        log_with_timestamp(f"    ⏱️  Disconnect: {time.time() - step_start:.1f}s")
 
         elapsed = time.time() - start_time
         log_with_timestamp(f"✅ Walk stopped successfully in {elapsed:.1f}s")
+        log_metric("stop_walk", success=True, total_time=round(elapsed, 2))
 
         return {
             "success": True,

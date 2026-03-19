@@ -964,3 +964,70 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:5678
  * Running on http://192.168.1.7:5678
 Press CTRL+C to quit
+127.0.0.1 - - [18/Mar/2026 12:13:15] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 12:15:54] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 12:16:49] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 12:21:42] "POST /startwalk HTTP/1.1" 409 -
+127.0.0.1 - - [18/Mar/2026 12:21:54] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 16:00:35] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 16:15:30] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 16:24:54] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 16:34:11] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 16:50:01] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [18/Mar/2026 17:17:38] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 08:34:08] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 08:36:39] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 08:42:05] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 15ms
+Audited 37 packages in 0.35ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.7:5678
+Press CTRL+C to quit
+127.0.0.1 - - [19/Mar/2026 08:49:18] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 08:49:39] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 0.42ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.7:5678
+Press CTRL+C to quit
+127.0.0.1 - - [19/Mar/2026 08:52:29] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 08:52:43] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 0.39ms
+Audited 37 packages in 0.01ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://192.168.1.7:5678
+Press CTRL+C to quit
+127.0.0.1 - - [19/Mar/2026 08:59:39] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:11:44] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:13:19] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:18:18] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:30:05] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:41:44] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 09:44:31] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 10:18:06] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 10:20:58] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 12:56:11] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 13:19:34] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 14:55:53] "POST /startwalk HTTP/1.1" 200 -
+Resolved 74 packages in 15ms
+Audited 37 packages in 0.28ms
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5678
+ * Running on http://10.5.0.2:5678
+Press CTRL+C to quit
+127.0.0.1 - - [19/Mar/2026 15:12:23] "POST /speed?speed=20 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:18:47] "POST /save_and_stop HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:19:54] "POST /speed?speed=10 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:20:10] "POST /startwalk HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:20:31] "POST /speed?speed=10 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:21:19] "POST /speed?speed=35 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:21:35] "POST /speed?speed=25 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:23:25] "POST /speed?speed=10 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Mar/2026 15:24:18] "POST /save_and_stop HTTP/1.1" 200 -
